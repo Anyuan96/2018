@@ -3,28 +3,31 @@
   注意：如果颠倒后的结果超过这个范围，则返回 0。
 
 # 代码实现：
-    class Solution:
-      def reverse(self, x):
-          """
-          :type x: int
-          :rtype: int
-          """
-          int_32bit_max_positive = 2**31 - 1
-          int_32bit_max_negative = -(2)**31
-          if  -10 < x < 10:
-              return x
-          else:
-              x_str = str(abs(x))
-              new = ''
-              for i in range(len(x_str)):
-                  new = new + x_str[-(i+1)]
-              x_reverse = int(new)
-              if x < 0:
-                  x_reverse = -x_reverse
-              if int_32bit_max_negative < x < int_32bit_max_positive:
-                  return x_reverse
-              else:
-                  return 0
+
+···
+  class Solution:
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        int_32bit_max_positive = 2**31 - 1
+        int_32bit_max_negative = -(2)**31
+        if  -10 < x < 10:
+            return x
+        else:
+            x_str = str(abs(x))
+            new = ''
+            for i in range(len(x_str)):
+                new = new + x_str[-(i+1)]
+            x_reverse = int(new)
+            if x < 0:
+                x_reverse = -x_reverse
+            if int_32bit_max_negative < x < int_32bit_max_positive:
+                return x_reverse
+            else:
+                return 0
+  ···
 
 # 总结体会：
   1. 32位整数范围为 -2^31 ~ 2^31 -1
