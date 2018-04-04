@@ -22,7 +22,7 @@
                 x_reverse = int(new)
                 if x < 0:
                     x_reverse = -x_reverse
-                if int_32bit_max_negative < x < int_32bit_max_positive:
+                if int_32bit_max_negative < x_reverse < int_32bit_max_positive:
                     return x_reverse
                 else:
                     return 0
