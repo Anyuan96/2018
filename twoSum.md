@@ -3,6 +3,7 @@
     你可以假设每个输入都只会有一种答案，同样的元素不能被重用。
 
 # 代码实现：
+    ```
     class Solution:
         def twoSum(self, nums, target):
             """
@@ -19,7 +20,7 @@
                 if exit_flag:
                     break
             return [i,j]
-  
+    ```
 # 总结体会：
   1. 由于同样的元素不能被重用，故j的起始位置应该是j+1
   2. 运用了两层循环，故要设置一个exit_flag来退出两层循环
