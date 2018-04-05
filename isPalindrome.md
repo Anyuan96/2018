@@ -26,7 +26,7 @@
                     digit /= 100
             else:
                 return True
-    ```
+   ```
     
 ## 正确示例
   ```
