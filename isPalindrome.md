@@ -30,16 +30,16 @@
     
 ## 正确示例
   ```
-  class Solution:
-    def isPalindrome(self, x):
-        """
-        :type x: int
-        :rtype: bool
-        """
-        if x < 0:
-            return False
-        else:
-            return str(x) == str(x)[::-1]
+  	class Solution:
+   	 def isPalindrome(self, x):
+       	 	"""
+        	:type x: int
+        	:rtype: bool
+        	"""
+        	if x < 0:
+          	  return False
+        	else:
+            	return str(x) == str(x)[::-1]
   ```
 # 总结体会
   1. 在错误示例中，如果高位遇到0，则会错误
