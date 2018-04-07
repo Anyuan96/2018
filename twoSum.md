@@ -4,8 +4,8 @@
 
 # 代码实现：
   
-  ```
-    class Solution:
+  ```python
+      class Solution:
         def twoSum(self, nums, target):
             """
             :type nums: List[int]
