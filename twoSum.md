@@ -5,7 +5,7 @@
 # 代码实现：
   
   ```python
-      class Solution:
+     class Solution:
         def twoSum(self, nums, target):
             """
             :type nums: List[int]
