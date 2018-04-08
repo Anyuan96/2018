@@ -5,6 +5,7 @@
 	你可以假设每个输入都只会有一种答案，同样的元素不能被重用。
 # 代码实现
 ```C
+	
 	int* twoSum(int* nums, int numsSize, int target) {
 	    int *result = (int*)malloc(2*sizeof(int));
 	    for(int i = 0;i < numsSize; i++){
@@ -19,6 +20,7 @@
 	    }
 	    return 0;
 	}
+	
 ```
 # 总结体会
 	1. 由于同样的元素不能被重用，故j的起始位置应该是j+1
