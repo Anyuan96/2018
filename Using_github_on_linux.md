@@ -19,6 +19,8 @@ Using github in Linux
 	When Permission denied
 	>> eval "($ssh-agent -s)"
 	>> ssh-add
+	When -agent：未找到命令
+	>> ssh-add
 7. Clone repo to local with SSH
 	>>git clone ________
 	view remote vision
