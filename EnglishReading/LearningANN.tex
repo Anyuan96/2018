@@ -1,0 +1,52 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[colorlinks = true]{hyperref}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+%opening
+\title{Learning artificial neural network}
+\author{Yuan An}
+
+\begin{document}
+
+\maketitle
+Artificial neural networks\cite{ANNwikipedia} (ANNs) are computing systems vaguely inspired by the biological neural networks that constitution animal brains. An ANN is based on a collection of connected units or nodes named artificial neurons. Each connection between artificial neurons can transmit a signal from one to another. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{ANN.png}
+	\caption{The model of ANN}\label{ANNmodel}
+\end{figure}
+\par
+As shown in the figure above, each circle represents an artificial neuron as an arrow represents ra connection from the output of one artificial neuron to the input of another.
+\par
+In Figure~\ref{ANNmodel}, we can see some visible components of an ANN: neurons and connections. There are other components behind representation.
+\par
+Neurons: A neuron with label $j$ receiving an input $p_j(t)$ from front neurons of the following components: an activation $a_j(t)$ depending on a discrete time parameter, a threshold $\theta_j$ staying fixed unless changed by a learning function, an activation function $f$ that computes the new activation at a given time $t+1$ from $a_j(t)$, $\theta_j$, and the net input $p_j(t)$ giving rise to the relation $a_j(t+1)=f(a_j(t),p_j(t),\theta_j)$ and an output function $f_{out}$ computing the output from the activation $o_j(t)=f_{out}(a_j(t))$. 
+\par
+\begin{table}[h]
+	\centering
+	\renewcommand{\arraystretch}{1.1}
+	\begin{tabular}{cc}
+		\toprule
+		Components&Expression\\
+		\midrule
+		activation&$a_j(t)$\\
+		threshold&$\theta_j$\\
+		activation function& $a_j(t+1)=f(a_j(t),p_j(t),\theta_j)$\\
+		output function& $o_j(t)=f_{out}(a_j(t))$\\
+		weight&$w_{ij}$\\
+		propagation function&$p_j(t) = \sum\limits_{i}o_i(t)w_{ij}$\\
+		\bottomrule
+	\end{tabular}
+	\caption{Components of ANN}
+\end{table}
+Connections: each connection transferring the output of a neuron $i$ to the input of a neuron $j$, and each connection is assigned a weight $w_{ij}$.
+\par
+Propagation function: the propagation function computes the input $p_j(t)$ to the neuron $j$ from the outputs $o_i(t)$ of front neurons and typically has the form $p_j(t) = \sum\limits_{i}o_i(t)w_{ij}$.
+\par
+Learning rule: the learning rule is a rule or an algorithm which modifies the parameters of the neural network, in order for a given input to the network to produce a favored output. This learning process typically amounts to modifying the weights and thresholds of the variables within the network.
+\bibliographystyle{plain}
+\bibliography{reference}
+
+\end{document}
