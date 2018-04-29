@@ -1,0 +1,44 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cite}
+\usepackage{url}
+\usepackage[colorlinks = true]{hyperref}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+%opening
+\title{Learning convolutional neural network}
+\author{Yuan An}
+
+\begin{document}
+
+\maketitle
+\section*{The introduction of CNNs}
+This CNN is not Cable News Network. This is the abbreviation of Convolutional Neural Networks. In machine learning, a convolution neural network (CNN)\cite{CNNwikipedia} is a class of deep, feedforward artificial neural networks that is usually used in analyzing visual imagery. 
+\par
+CNNs use a variation of multilayer perceptions\footnote{a class of feedforward artificial neural network.} designed to require minimal preprocessing. They are aslo called shift invariant or space invariant artificial neural networks (SIANN), as they have the characteristics of shared weights architecture and translation invariance.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{translationinvariance.png}
+	\caption{Translation invariance}\label{figure1}
+\end{figure}
+Convolutional networks are imitation of biological process in that the connectivity pattern between neurons resembles the organization of the animal visual cortex. Individual cortical neurons respond to stimuli only in a restricted region of the visual field known as the receptive field\footnote{the particular region of sensory space.}. The receptive fields of different neurons partially overlap as they cover the entire visual field.
+\par
+\section*{The components of CNNs}
+A CNN consists of an input layer, an output layer and multiple hidden layers. The hidden layers of a CNN traditionally consist of convolution layers, pooling layers and fully connected layers.
+\par
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{CNN.jpg}
+	\caption{The components of a CNN}
+\end{figure}
+\subsection*{Convolution layer} 
+Convolutional layers apply a convolution operation to the input, passing the result to the next layer. The convolution emulates the response of an individual neuron to visual stimuli. And each convolutional neuron processes data only for its receptive field.
+CNNs share weights in convolutional layer, which means that the same filter is used for each receptive field in the layer. This reduces memory footprint and improves performance.
+\subsection*{Pooling layer}
+Convolutional networks may include local or global pooling layers. Pooling layers combine the outputs of neuron cluster at one layer into a single neuron in the next layer.
+\subsection*{Fully connected layer}
+Fully connected layers connect every neuron in one layer to every neuron in another layer. It is in principle the same as the traditional multilayer perceptron neural network.
+
+\bibliography{reference}
+\bibliographystyle{plain}
+\end{document}
