@@ -1,0 +1,39 @@
+\documentclass[a4paper,12pt,twocolumn]{article}
+\usepackage{cite}
+\usepackage[colorlinks = true]{hyperref}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.5em}
+\usepackage{graphicx}
+%opening
+\title{Learning BP}
+\author{Yuan An}
+\date{May 1st, 2018}
+\begin{document}
+\maketitle
+Backpropagation\cite{BPwikipedia} is a method used in artificial neural networks to calculate a gradient that is needed in the calculation of the weights to be used in the network. It is usually applied to train deep neural networks\footnote{a class of artificial neural network with multiple hidden layer between the input and output layers that can model complex non-linear relationships.}\cite{DNNwikipedia}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{DNN.jpg}
+	\caption{An example of DNN}\label{DNNfigure}
+\end{figure}
+\par
+Backpropagation is commly used by the gradient descent\footnote{a first-order iterative optimization algorithm for finding the minimum of a function} optimization algorithm to adjust the weight of neurons by calculating the gradient of the loss function.
+\par
+Loss function is sometimes called cost function or error function. The loss function is a function that maps values of one or more variables onto a real number. For backpropagation, the loss function calculates the difference between the network output and its expected output after a case propagates through the network.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{BP.jpg}
+	\caption{A model of BP}\label{BPfigure}
+\end{figure}
+\par
+The limitations of BP are as follows:
+\begin{itemize}
+	\item Gradient descent with BP is not guaranteed to find the global minimum of the loss function, but only a local minimum.
+	\item Backpropagation learning doesn't require normalization of input vectors while normalization might improve performance.
+\end{itemize}
+\par
+Backpropagation is also a generalization of the delta rule\footnote{a gradient descent learning rule for updating the weights of the inputs to artificial neurons in a single-layer neural network.} to multi-layered feedforward network, made possible by using the chain rule to iteratively compute gradients for each layer. It is closely related to the Gauss-Newton algorithm, and is part of continuing research in neural backpropagation.
+\bibliography{reference}
+\bibliographystyle{plain}
+\end{document}
