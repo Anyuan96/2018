@@ -1,0 +1,38 @@
+\documentclass[a4paper, 12pt, twocolumn]{article}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage[colorlinks = true]{hyperref}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{subfig}
+\title{Modern History of Object Recognition Infographic}
+\author{Yuan An}
+\begin{document}
+\maketitle
+A Medium user Đặng Hà Thế Hiển made a Infographic\cite{MHoOR} which introduced the history of computer vision (CV) object recognition in a professional concise and attractive way. It not only summarizes six key technologies using in CV and important concepts of object recognition  from AlexNet won ILSVRC in 2012, but also summarizes thirteen models and concepts such as VGGNet, ResNet, Inception and Mask RCNN proposed recently (as demonstrated in Figure~\ref{minimap}).
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{minimap.png}
+	\caption{MiniMap of Infographic}\label{minimap}
+\end{figure}
+\subsection*{Six key technologies in CV}
+\begin{figure}[h]
+	\centering
+	\subfloat[]{\includegraphics[width=0.3\linewidth]{IR.png}\label{fig2a}}
+	\subfloat[]{\includegraphics[width=0.3\linewidth]{OL.png}\label{fig2b}}
+	\subfloat[]{\includegraphics[width=0.3\linewidth]{OR.png}\label{fig2c}}\\
+	\subfloat[]{\includegraphics[width=0.3\linewidth]{SS.png}\label{fig2d}}
+	\subfloat[]{\includegraphics[width=0.3\linewidth]{IS.png}\label{fig2e}}
+	\subfloat[]{\includegraphics[width=0.3\linewidth]{KD.png}\label{fig2f}}
+	\caption{Six key technologies in CV}\label{fig2}
+\end{figure}
+\par
+As shown in Figure~\ref{fig2}, Image Classification is to classify an image based on the dominant object inside it. Object Localization is a technology to predict the image region that contains the dominant object, then image classification can be used to recognize object in the region. Object Recognition is that localize and classify all objects appearing in the image and its tasks includes: proposing regions then classify the object inside them. What Semantic Segmentation does are that labeling each pixel of an image by the object class that it belongs to, such as human, sheep and grass in the example. Instance Segmentation is to label each pixel of an image by the object class and object instance that it belongs to, while Keypoint Detection is to detet locations of a set of predefined keypoints of an object such as keypoints in a human body or face.
+\subsection*{Others}
+In this article, the key persons in object recognition are listed. Then it introduces the important concepts of CNN and object recognition in detail. It also describes the development history of object recognition from AlexNet won the ILSVRC in 2012 to MaskRCNN proposed in 2017.
+\par
+And the references of this article are chosen carefully to make it convenient for readers where to find interpretations of details about knowledge point. It's friendly enough for beginners.
+\bibliography{reference}
+\bibliographystyle{plain}
+\end{document}
