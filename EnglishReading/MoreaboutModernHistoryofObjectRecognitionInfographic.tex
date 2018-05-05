@@ -1,0 +1,76 @@
+\documentclass[a4paper,12pt,twocolumn]{article}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage[colorlinks = true]{hyperref}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{subfig}
+\usepackage{amsmath}
+\title{More about Modern History of Object Recognition Infographic}
+\author{Yuan An}
+
+\begin{document}
+\maketitle
+In the last article, six key technologies in CV were introduced. There are also other knowledges to be presented. 
+\par
+Something about CNN were referred in my previous article. So only some important object recognition concepts are introduced there.
+\subsection*{Important Object Recognition Concepts\cite{MHoOR}}
+\subsubsection*{Bounding box proposal}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{bbp1.png}
+	\qquad
+	\includegraphics[width=0.3\linewidth]{bbp2.png}
+	\caption{Bounding box proposal}\label{bbp}
+\end{figure}
+\par
+Bounding box proposal are also named region of interest, region proposal or box proposal. As is shown in Figure~\ref{bbp}, a rectangular region of the input image that potentially contains an object inside. A bounding box can be represented as a 4-elements vector, either storing its two corner coordinates (x0,y0,x1,y1), or storing its center location and its width and height (x,y,w,h), as presentation in right figure in Figure~\ref{bbp}. And a bounding box is usually accompanied by a confidence score of how likely the box contains an object.
+\subsubsection*{Intersection over Union}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{IoU.png}
+	\caption{Intersection over Union}\label{iou}
+\end{figure}
+\par
+Intersection over Union (IoU, or called Jaccard similarity) is a metric that measures the similarity bewteen two bounding boxes.
+\begin{equation*}
+	IoU = \frac{Area\ of\ Overlap}{Area\ of\ Union} 
+\end{equation*}
+\subsubsection*{Non Maxium Suppression}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{nms.png}
+	\caption{Non Maxium Suppression}\label{nms}
+\end{figure}
+\par
+Non Maxium Suppression (NMS) is a common algorithm to merge overlapping bounding boxes (proposals or detections). As displayed in the Figure~\ref{nms}, a bounding box that significantly overlaps (IoU > IoU\_threshold) with a higher-confident bounding box is suppressed or removed.
+\subsubsection*{Bounding box regression}
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=0.5\linewidth]{bbr.png}
+	\caption{Bounding box regression}\label{bbr}
+\end{figure}
+\par
+Bounding box regression (also named bounding box refinement) is that by looking at an input region, we can infer the bounding box that better fit the object inside, even if the object is only partly visible. As shown in the Figure~\ref{bbr}, it illustrates the possibility of inferring the ground truth box only by looking at part of object. So one regressor can be trained to look at an input region and predict the $offset_\Delta(x,y,w,h)$ between the input region box and the ground truth box.
+\subsubsection*{Prior box}
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=0.5\linewidth]{pb.png}
+	\caption{Prior box}\label{pb}
+\end{figure}
+\par
+Instead of using the input region as the only prior box, we can train multiple bounding box regressors, each look at the same input region but has a different prior box and learns to predict the offset between its own prior box and the ground the ground truth box. In this way, regressors with different prior boxs can learn to predict bounding with different properties (such as aspect ratio, scale, locations).
+\subsubsection*{Box Matching Strategy}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{bms.png}
+	\caption{Box Matching Strategy}\label{bms}
+\end{figure}
+\par
+In general, a bounding box is not able to predict a bounding box of an object that is far away from its input region or its prior box. Therefore a box matching strategy is needed to decide which prior box is matching with a ground truth.
+\subsubsection*{Hard negative example mining}
+For each prior box, there is a bounding box classifier that estimates the likelihood of having an object inside. And after box matching, all matched prior boxes are positive examples for the classifier while other prior boxes are negatives. When used all of these hard negative examples, the positives and negatives are significant imbalance.
+\bibliography{reference}
+\bibliographystyle{plain}
+\end{document}
