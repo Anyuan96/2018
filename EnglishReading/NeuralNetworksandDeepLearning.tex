@@ -1,0 +1,39 @@
+\documentclass[a4paper,12pt,twocolumn]{article}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage[colorlinks = true]{hyperref}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{subfig}
+\usepackage{amsmath}
+\title{Neural Netwoks and Deep Learning}
+\author{Yuan An}
+
+\begin{document}
+
+\maketitle
+Today, I　read some chapters of a book about neural networks and deep learning. \emph{Neural Networks and Deep Learning}\cite{NNDL} is a free online book. As the name implies, the book talks about neural networks and deep learning that provide the best solutions to many problems in image recognition, speech recognition ad natural language processing. The author of the book is Michael Nielsen\footnote{more information is on website: \url{http://michaelnielsen.org/}}, a quantum physicist, writer, and programmer.
+\par
+In the introduction of the book, the author tells us the different between the conventional approach of programming and neural network programming which can learn from observational data and then figure out its own solution to the problem.
+\par
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{digits.png}
+	\caption{An example of handwritten digits}\label{fig1}
+\end{figure}
+In the first chapter, the author gives an example of recognizing handwritten digits. Most people can recognize handwritten digits (as shown in the Figure~\ref{fig1})effortlessly while it is difficult for computer to do this. But neural networks approach the problem in a different way. 
+\par
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{digitstraining.png}
+	\caption{Part of training examples of handwritten digits}\label{fig2}
+\end{figure}
+The idea is to take a large number of handwritten digits, known  as training examples, and then develop a system which can learn from those training examples (Figure~\ref{fig2}). That is, the neural networks uses the example to automatically infer rules for recognizing handwritten digits.
+\par
+Besides, the network can learn more about handwritten and improve accuracy by increasing the number of training examples.
+\par
+In the following sections, the book tells many key concepts in neural networks such as perceptrons, sigmoid neurons. And in most sections, there is exercise that combines theories just learnt with practices. There are seldom books to aim to both theory and practice. So I think this is a excellent beginners' book.
+\bibliography{reference}
+\bibliographystyle{plain}
+\end{document}
