@@ -1,0 +1,36 @@
+\documentclass[a4paper,12pt,twocolumn]{article}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage[colorlinks = true]{hyperref}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{subfig}
+\usepackage{amsmath}
+\title{AI creates new levels for Doom and Super Mario games}
+\author{Yuan An}
+
+\begin{document}
+
+\maketitle
+\href{http://www.bbc.com/news/technology-44040007}{The news} from BBC surprised me a lot that AI creates new levels for Doom\footnote{a game released in 1993 and considered to be a major milestone in video games history} and Super Mario games\cite{BBCnews}. When it comes to AI of games, we usually think of figures that dull bots with guns in Counter-Striker or fierce enemies of Warcraft and Red Alert.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig1.png}
+	\caption{The game Doom}\label{fig1}
+\end{figure}
+\par
+It is the first time that an artificial intelligence network can design new levels for video games. And researchers said, the technique could be used to create future video games more quickly and less expensively.
+\par
+According to the researchers at the Politecnico di Milano in Italy, they used a deep learning technique known as a generative adversarial network (GAN). In GAN, two neural networks were pitted against each other, and one is called generator and another is called discriminator. The generator is always attempting to trick the later.
+\par
+There are large numbers of Doom levels freely available online, which provides a rich vein of data. The researchers used data from 1,000 officially created Doom levels and 9,000 levels created by the wider gaming community in order to teach AI. They generated a set of images from each level to show the AI the walkable area, walls, floor height, objects and room segmentation. They also fed it information that described the level, including size, length of the perimeter and number of rooms. It took 36,000 iterations for the networks to generate something playable.
+\par
+Leader researcher Edoardo Giacomello said, their result show that GANs have capacities to capture intrinsic structure of Doom levels and appear to be a promising approach to level generation in first person shooter games.
+\par
+Researchers from the University of California have developed a similar approach to build new levels for the Super Mario game.
+\par
+It's pity that they both are currently  prototypes and are not available for players to test.
+\bibliography{reference}
+\bibliographystyle{plain}
+\end{document}
