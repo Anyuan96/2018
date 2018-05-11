@@ -1,0 +1,46 @@
+\documentclass[a4paper,12pt,twocolumn]{article}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage[colorlinks = true]{hyperref}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{subfig}
+\usepackage{amsmath,amsfonts,amssymb}
+
+\title{Generative Adversarial Network}
+
+\author{Yuan An}
+
+\begin{document}
+\maketitle
+In the last article, it was introduced that researchers made GAN-based AI create new levels for Doom and Super Mario games. Today, I　read something about GAN.
+\par
+Generative adversarial networks are a class of artificial intelligence algorithms used in unsupervised machine learning \cite{GANwikipedia}. This technique can generate photographs that look at least superficially authentic to human observers, having many realistic characteristics.
+\par
+This concept was introduced by IJ Godfellow \emph{et al.} in 2014 \cite{Goodfellow2014Generative}. GANs have been used to produced samples of photorealistic\footnote{a genre of art that encompasses painting, drawing and other graphic media.} images for the purposes of visualizing new interior/industrial design or items for computer games' scenes.
+\par
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\linewidth]{GAN.jpg}
+	\caption{Adversarial Nets Framework}\label{ANF}
+\end{figure}
+\par
+In Godfellow's paper, an equation (Equ.~\ref{equ1}) is given to be described in mathematical linguistics. This equation is difficult to understand.
+\begin{equation}
+\begin{split}
+	&\min_{G} \max_{D}V(D,G) = \mathbb{E}_{\boldsymbol{x}\thicksim p_{data}(\boldsymbol{x})}[\log{D(\boldsymbol{x})}]\\
+	&+\mathbb{E}_{\boldsymbol{z}\thicksim p_{\boldsymbol{z}} (\boldsymbol{z})} [\log{(1-D(G(\boldsymbol{z})))}]
+\end{split}
+\label{equ1}
+\end{equation}
+\par
+As shown in Fig.~\ref{ANF}, the figure is easy to understand. The left part displays when a sample $x$ from data is input to the function $D$ which is called Discriminator, and tries to Discriminator make $D(x)$ be near 1 as $x$ is from real data. The right part shows that function $G$ which is called Generator generates a fake data $G(z)$ by accepting a noise $z$, then this fake data is input to function $D$, Discriminator tires to make $D(G(z))$ near 0 as $G(z)$ is not a real data, while Generator tires to make $D(G(z))$ near 1 for its inherent function.
+\par
+That is to say, Discriminator tries its best to distinguish the real data from the fake data , and Generator also does its best to generate a 'real' data to cheat Discriminator.
+\bibliography{reference}
+
+\bibliographystyle{plain}
+
+\end{document}
+
