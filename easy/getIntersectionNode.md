@@ -34,7 +34,6 @@ struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *he
     struct ListNode *headOfB;
     headOfB = headB;
     while(headA){
-        temp = headA;
         while(headB){
             if (headB == headA) return headA;
             headB = headB->next;
