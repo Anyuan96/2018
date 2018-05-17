@@ -1,0 +1,35 @@
+\documentclass[a4paper,12pt,twocolumn]{article}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage[colorlinks = true]{hyperref}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{subfig}
+\usepackage{amsmath}
+
+\title{Deep Belief Network}
+\author{Yuan An}
+
+\begin{document}
+\maketitle
+
+In machine learning, a deep belief network (DBN) is a generative graphical model\cite{DBNwikipedia}, or alternatively a class of deep neural network. Its schematic overview is shown as Fig.~\ref{DBN}. We can see that it is composed of multiple layers of latent variables\footnote{variables that are not directly observed but are rather inferred from other observed variables.}, with connections between the layers but not between units within each layer.
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=0.9\linewidth]{DBN.png}
+	\caption{Schematic overview of a deep belief net}\label{DBN}
+\end{figure}
+\par
+DBN was first introduced by Geoffrey Hinton in 2006 \cite{DBN} which is regarded as milestone of deep learning eve. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{RBM.jpeg}
+	\caption{The structure of RBM}\label{RBM}
+\end{figure}
+\par
+DBNs can be viewed as a composition of simple, unsupervised networks such as restricted Boltzmann machines (RBMs\footnote{ generative stochastic artificial neural networks which can learn a probability distribution over its set of inputs}). A RBM is an undirected, generative energy-based model with a ``visible'' input layer and a hidden layer and connections between but not within layers. The structure of RBM is demonstrated in Fig.~\ref{RBM} 
+\bibliography{reference}
+\bibliographystyle{plain}
+\end{document}
+
