@@ -1,0 +1,40 @@
+\documentclass[a4paper,12pt,twocolumn]{article}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage[colorlinks = true]{hyperref}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{subfig}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\title{More about Deep Belief Nets}
+\author{Yuan An}
+
+\begin{document}
+\maketitle
+In the paper \emph{A Fast Learning Algorithm for Deep Belief Nets} \cite{DBNpaper}, the authors introduced fast, greedy algorithm that can learn deep, directed belief networks one layer at a time, provided the top two layer form an undirected associative memory. The algorithm can be used to initialize a slower learning procedure that fine-tunes\footnote{make small adjustments to something in order to the best or a desired performance} the weights using a contrastive version of the wake-sleep algorithm. And the paper verified validation of the algorithm using handwritten digit images. The conclusion shows that this generative model gives better digits classification than the best discriminative learning algorithm.
+\par
+In section 1, the paper explained the disadvantages of densely connected, directed belief nets which have many hidden layers for its difficult to infer the conditional distribution of the hidden activities. And then they described a model (as shown in Fig.~\ref{fig.1}) in which the top two hidden layers form an undirected associative memeory and the remaining hidden layers form a directed acyclic graph that converts the representations in the associative memory into observable variables such as the pixels of an image.
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=0.8\linewidth]{model1.png}
+	\caption{The network used to model the joint distribution of digit images and digits labels}\label{fig.1}
+\end{figure}
+\par
+And in this letter, each training case consists of an image and an explicit class label, but work in progress has shown that the same learning algorithm can be used if the ``labels'' are replaced by a multilayer pathway whose inputs are spectrograms from multiple different speakers saying isolated digits. Then the network learns to generate pairs that consist of an image and a spectrogram of the same digit class.
+\par
+This hybrid model has some advantages:
+\begin{itemize}
+	\item There is a fast, greedy learning algorithm that can find a fairly good set of parameter quickly, even in deep networks with millions of parameters and many hidden layers.
+	\item The learning algorithm is unsupervised but can be applied to labeled data by learning a model that generates both the label and the data.
+	\item There is a fine-tuning algorithm that learns an excellent generative model that outperforms discriminative methods on the MNIST database\footnote{a larger database of handwritten digits than NIST} of handwritten digits.
+	\item The generative model makes it easy to interpret the distributed representations in the deep hidden layers.
+	\item The inference required for forming a percept is both fast and accurate.
+	\item The learning algorithm is local. Adjustments to a synapse strength depend on only the states of the presynaptic and postsynaptic neuron.
+	\item The communication is simple. Neurons need only to communicate their stochastic binary states.
+\end{itemize}
+\bibliography{reference}
+\bibliographystyle{plain}
+\end{document}
+
