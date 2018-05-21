@@ -1,0 +1,62 @@
+\documentclass[a4paper,12pt,twocolumn]{article}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage[colorlinks = true]{hyperref}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{subfig}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\title{Machine Learning is Fun}
+\author{Yuan An}
+
+\begin{document}
+\maketitle
+
+The guide \emph{Machine Learning is Fun}\cite{MLisFun} is written for anyone who is curious about machine learning but has no idea where to start. The author of this guide is Adam Geitgey.
+\par
+In the part 1, the author answered the question `` What is machine learning '' in plain language:
+\begin{quote}
+	Machine learning is the idea that there are generic algorithms that can tell you something interesting about a set of data without you having to write any custom code specific to the problem. Instead of writing code, you feed data to the generic algorithm and it builds its builds its won logic based on the data.
+\end{quote}
+\par
+Then the author gave a example of the classification algorithm that can be used to recognize handwritten numbers and classify emails into spam and not-spam without changing a line of code (see Fig.~\ref{fig1}).
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig1.png}
+	\caption{This machine learning algorithm is a black box that can be re-used for lots of different classification problems}
+	\label{fig1}
+\end{figure}
+\par
+In the following, the author introduced two kinds of Machine Learning Algorithm: Supervised Learning and Unsupervised Learning. In this section, the author used estate agent as example to tell the different of this two algorithm. Supervised algorithm seems like predicting estate sale price on condition that you have known much about knowledge of sold prices of other estates, while unsupervised algorithm without knowing much about sale prices. And now unsupervised learning is becoming increasingly important as the algorithms get better because it can be used without having to label the data with the correct answer.
+\par
+As a human, we all can approach most any situation and learn how to deal with that situation without any explicit instructions. And the goal of Strong AI is to have this ability. But current machine learning algorithm aren't that good yet, they only work when focused a very specific, limited problem. So maybe a better definition for learning is figuring out an equation to solve a specific problem based on some example data.
+\par
+Then the author taught how to `write' the program, in fact it's in pseudocode way to program. And he compared the program of predicting house sale prices to making soup. As is described above,  the learning procedure is to find a best equation to match existing data step by step. But it is impossible for us to try every number in order to match this. So wise mathematicians have figured out lots of clear ways to quickly find good values for those weights without having to try very many.
+\par
+First, write a simple equation in a easy-to-understand way:
+\begin{equation}
+	Cost = \dfrac{\sum\limits_{i=1}^{n}(MyGuess(i) - RealAnswer(i))^{2}}{2n} \label{equ1}
+\end{equation}
+this is our cost function.
+\par
+Now rewrite Equ.~\ref{equ1} into a mathematical way:
+\begin{equation}
+	J(\theta) = \dfrac{1}{2n} \sum\limits_{i=1}^{n}(h_\theta (x^{(i)}-y^{(i)}))^2 \label{equ2}
+\end{equation}
+where $\theta$ (in Equ.~\ref{equ2})is what represents your current weights. $J(\theta)$ means the `cost for your current weights'.
+\par
+The Equ.~\ref{equ2} represents how wrong our price estimating function is for the weights we currently have set. We can get the graph of $J(\theta)$ as shown in the following (Fig.~\ref{fig2}).
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig2.png}
+	\caption{The graph of $J(\theta)$} \label{fig2}
+\end{figure}
+In Fig.~\ref{fig2}, the lowest point in blue is where our cost is the lowest, that is to say the $J(\theta)$ is the least wrong, while the highest points are where we are most wrong. So we can adjust weights to arrive the lowest point.
+\par
+In the last of this part, the author also told us that machine learning works after satisfying one condition that the problem is actually solvable with the data that you have. And the author also introduced the way to learn machine learning. Except the matched courses of this article, we can attend Andrew Ng's free Machine Learning class on Coursera. We can also play around with tons of machine learning algorithms by downloading and installing SciKit-Learn\footnote{a python framework that has ``black box'' versions of all the standard algorithms.}.
+\bibliography{reference}
+\bibliographystyle{IEEEtran}
+\end{document}
+
