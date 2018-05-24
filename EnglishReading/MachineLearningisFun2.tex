@@ -1,99 +1,108 @@
-\documentclass[a4paper,12pt,twocolumn]{article}
-\usepackage{indentfirst}
-\setlength{\parindent}{2em}
-\usepackage[colorlinks = true]{hyperref}
-\usepackage{cite}
-\usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{subfig}
-\usepackage{amsmath,amssymb,amsfonts}
+\documentclass[10pt,twocolumn,letterpaper]{article}
 
-\title{Machine Learning is Fun Part 2}
-\author{Yuan An}
+\usepackage{cvpr}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage[breaklinks=true,bookmarks=false]{hyperref}
+
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+%\setcounter{page}{4321}
 
 \begin{document}
-\maketitle
 
-In last article, I read the guide article of Geitgey \cite{MLisFun}. Today, I continue to read the Part 2. The subtitle of this part is \emph{Using Machine Learning to generate Super Mario Maker levels} (see Fig.~\ref{fig1}). 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\linewidth]{fig1.jpg}
-	\caption{One of the levels the algorithm will generate}\label{fig1}
-\end{figure}
-\par
-Recall the previous part, the author created a simple algorithm that estimate the value of the house based on its attributes. Given data about a house like followings:
-\begin{table}[h]
-	\centering
-	\caption{Attributes of house sales}
-	\begin{tabular}{ccc}
-		\toprule
-		Bedrooms & Sq.feet & Neighborhood\\
-		\midrule
-		3 & 2000 & Hipsterton \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-\par
-The value of the house is estimated by multiplying each of its attributes by a weight, then add all those numbers up to get the house's value.
-\par
-The diagram of this procedure are as following Fig.~\ref{fig2}:
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\linewidth]{fig2.png}
-	\caption{The diagram of estimating procedure}\label{fig2}
-\end{figure}
-\par
-But this algorithm only works for simple problems where the result has a linear relationship with the input. To make the algorithm more clever, run it multiple times with different weights to capture different edge case (as shown in Fig.~\ref{fig3}):
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\linewidth]{fig3.png}
-	\caption{Running four times with different weights}\label{fig3}
-\end{figure}
-\par
-Then combine those four price estimates into on final estimate as following Fig.~\ref{fig4}:
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\linewidth]{fig4.png}
-	\caption{Combine four price into the same algorithm using a different weights set} 
-	\label{fig4}
-\end{figure}
-\par
-Now a `Super Answer' is obtained to model more cases.
-\par
-Then the author introduced the Neural Network. See in Fig.~\ref{fig5}
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\linewidth]{fig5.png}
-	\caption{The diagram of the Neural Network}\label{fig5}
-\end{figure}
-\par
-This is a neural network. Each code knows about how to take in a set of inputs, apply weights to them, and calculate an output value. By chaining together lots of these nodes, it can be used to model complex functions. In the neural network, there are important part as following:
-\begin{itemize}
-	\item The function that takes in a set of inputs and multiplies them by weights to get an output named \emph{neuron}
-	\item By chaining lots of simple \emph{neuron} together, it can model functions that are too complicated to be modeled by one single neuron.
-\end{itemize}
-\par
-But the neural network made by this method always returns the same answer when given the same inputs. It has no memory, also called stateless algorithm in programming terms. In many conditions, it is needed as we want. But this kind of model can't respond to patterns in data over time.
-\par
-The author take a example of writing story on computer using keyboard. What computer guess the very first letter the user will type.
-\par
-It can use the knowledge of English to increase its odds of guessing the right letter. For example, the typer will probably type a letter that is common at the beginning of words. If it looked at stories the typer wrote in the past, it could narrow it down further based on the words typer usually use at the beginning of stories.
-\par
-When it comes to guess the next letter the typer will type, this is a much more interesting problem. The author used \emph{The Sun also Rises} of Ernets Hemingway's novel as example to introduce the stateful model. The diagram of the stateful model is shown in the Fig.~\ref{fig6}
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\linewidth]{fig6.png}
-	\caption{The diagram of the stateful model}\label{fig6}
-\end{figure}
-\par
-For solving the problem, state is add to the model. Each time we can ask our neural network for an answer, and we aslo save a set of our intermediate calculations and re-use them the next times as part of our input. After doing this, the model will adjust its predictions based on the input that it has seen recently. Keeping track of state in the model makes it possible to not just predict the most likely first letter in the story, but to predict the most likely next letter given all previous letters.
-\par
-The thing talking above is the basic idea of a recurrent neural network. We can update the network each time we use it, and it allows to update its predictions based on what it saw most recently. It can even model patterns over time as long as we give it enough of a memory.
-\par
-Then the author introduced applications of this model, and used the model  created by Andrej Karpathy\footnote{a deep learning researcher at Stanford and he wrote an excellent introduction to generating text with RNNs} to generate a story. What's more, the author also created Super Mario's new level using the model.
-\par
-As machine learning becomes more important in more industries, the difference between a good program and a bad program will be how much data you have to train your models. That's why companies like Google and Facebook need your data so badly. And Google recently released a open source TensorFlow, its software toolkit for building large-scale machine learning applications. It was a pretty big deal that Google gave away such important, capable technology for free. 
-\bibliography{reference}
-\bibliographystyle{IEEEtran}
+	\title{\LaTeX\ Author Guidelines for CVPR Proceedings}	
+	\author{Yuan An}
+
+	\maketitle
+	In last article, I read the guide article of Geitgey~\cite{MLisFun}. Today, I continue to read the Part 2. The subtitle of this part is \emph{Using Machine Learning to generate Super Mario Maker levels} (see Fig.~\ref{fig1}). 
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\linewidth]{fig1.jpg}
+		\caption{One of the levels the algorithm will generate}\label{fig1}
+	\end{figure}
+	\par
+	Recall the previous part, the author created a simple algorithm that estimate the value of the house based on its attributes. Given data about a house like followings:
+	\begin{table}[h]
+		\centering
+		\caption{Attributes of house sales}
+		\begin{tabular}{ccc}
+			\toprule
+			Bedrooms & Sq.feet & Neighborhood\\
+			\midrule
+			3 & 2000 & Hipsterton \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	\par
+	The value of the house is estimated by multiplying each of its attributes by a weight, then add all those numbers up to get the house's value.
+	\par
+	The diagram of this procedure are as following Fig.~\ref{fig2}:
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig2.png}
+		\caption{The diagram of estimating procedure}\label{fig2}
+	\end{figure}
+	\par
+	But this algorithm only works for simple problems where the result has a linear relationship with the input. To make the algorithm more clever, run it multiple times with different weights to capture different edge case (as shown in Fig.~\ref{fig3}):
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig3.png}
+		\caption{Running four times with different weights}\label{fig3}
+	\end{figure}
+	\par
+	Then combine those four price estimates into on final estimate as following Fig.~\ref{fig4}:
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig4.png}
+		\caption{Combine four price into the same algorithm using a different weights set} 
+		\label{fig4}
+	\end{figure}
+	\par
+	Now a `Super Answer' is obtained to model more cases.
+	\par
+	Then the author introduced the Neural Network. See in Fig.~\ref{fig5}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig5.png}
+		\caption{The diagram of the Neural Network}\label{fig5}
+	\end{figure}
+	\par
+	This is a neural network. Each code knows about how to take in a set of inputs, apply weights to them, and calculate an output value. By chaining together lots of these nodes, it can be used to model complex functions. In the neural network, there are important part as following:
+	\begin{itemize}
+		\item The function that takes in a set of inputs and multiplies them by weights to get an output named \emph{neuron}
+		\item By chaining lots of simple \emph{neuron} together, it can model functions that are too complicated to be modeled by one single neuron.
+	\end{itemize}
+	\par
+	But the neural network made by this method always returns the same answer when given the same inputs. It has no memory, also called stateless algorithm in programming terms. In many conditions, it is needed as we want. But this kind of model can't respond to patterns in data over time.
+	\par
+	The author take an example of writing story on computer using keyboard. What computer guess the very first letter the user will type.
+	\par
+	It can use the knowledge of English to increase its odds of guessing the right letter. For example, the typer will probably type a letter that is common at the beginning of words. If it looked at stories the typer wrote in the past, it could narrow it down further based on the words typer usually use at the beginning of stories.
+	\par
+	When it comes to guess the next letter the typer will type, this is a much more interesting problem. The author used \emph{The Sun also Rises} of Ernets Hemingway's novel as an example to introduce the stateful model. The diagram of the stateful model is shown in the Fig.~\ref{fig6}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig6.png}
+		\caption{The diagram of the stateful model}\label{fig6}
+	\end{figure}
+	\par
+	For solving the problem, state is add to the model. Each time we can ask our neural network for an answer, and we aslo save a set of our intermediate calculations and re-use them the next times as part of our input. After doing this, the model will adjust its predictions based on the input that it has seen recently. Keeping track of state in the model makes it possible to not just predict the most likely first letter in the story, but to predict the most likely next letter given all previous letters.
+	\par
+	The thing talking above is the basic idea of a recurrent neural network. We can update the network each time we use it, and it allows to update its predictions based on what it saw most recently. It can even model patterns over time as long as we give it enough of a memory.
+	\par
+	Then the author introduced applications of this model, and used the model  created by Andrej Karpathy\footnote{A deep learning researcher at Stanford and he wrote an excellent introduction to generating text with RNNs.} to generate a story. What's more, the author also created Super Mario's new level using the model.
+	\par
+	As machine learning becomes more important in more industries, the difference between a good program and a bad program will be how much data you have to train your models. That's why companies like Google and Facebook need your data so badly. And Google recently released a open source TensorFlow, its software toolkit for building large-scale machine learning applications. It was a pretty big deal that Google gave away such important, capable technology for free. 
+	
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+
 \end{document}
-
