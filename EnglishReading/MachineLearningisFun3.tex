@@ -1,0 +1,94 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext,newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[breaklinks=true,bookmarks=false]{hyperref}
+
+\cvprfinalcopy
+
+%\def\cvprPaperID{****}
+
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+%\setcounter{page}{4321}
+
+\begin{document}
+	\title{Machine Learning is Fun Part 3}	
+	\author{Yuan An}
+	\maketitle
+	In the last article, it is mainly about the neural network. The third part of \emph{Machine Learning is Fun}~\cite{MLisFun} is talking about recognizing objects with Deep Learning.
+	\par
+	A little kid can figure out the bird from other items, but it is difficult for the computer to do this. That makes the very best computer scientists puzzled for over 50 years.
+	\par
+	In the last few years, a good approach to object recognition using deep convolution neural networks has been founded, and there are  more information about this in the paper of Krizhevsky \etal~\cite{Krizhevsky2012ImageNet}.
+	\par
+	Then the author began object recognition from an easy example -- recognizing the handwritten number 8. In the part 2, there is a small neural network to estimate the price of a house based on how many bedrooms it had, how big  it was, and which neighborhood it was in. And we know that the idea of machine learning is that the same generic algorithms can be reused with different data to solve different problems. So this neural netork (see Fig.~\ref{fig1}) can be modified to recognize handwritten text.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.8\linewidth]{fig1.png}
+		\caption{The model of predicting house sale price} \label{fig1}
+	\end{figure}
+	\par
+	Machine learning only works when data is provided. In the article, the author uses MNIST dataset which provides 60,000 images of handwritten digits, each as an 18*18 pixels. There are some 8s from the data set (see in Fig.~\ref{fig2})
+	\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig2.jpg}
+	\caption{Some 8s from the MNIST data set}\label{fig2}
+	\end{figure}
+	\par
+	Now we have data, and how do we put the data in the algorithm. The author told us that everything is just numbers. A neural network takes numbers as input. To the computer, an image is really just a grid of numbers that represent how dark each pixel is. Because each image has 18*18 pixels, so that is an array of 324 dimension numbers. To handle those inputs, the neural network should be enlarged to have 324 input nodes.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.8\linewidth]{fig3.png}
+		\caption{Modified neural network}\label{fig3}
+	\end{figure}
+	\par	
+	As shown in Fig.~\ref{fig3}, the neural network has two outputs now that the image is an ``8'' and the image is not ``8''. By having a separate output for each type of object to be recognized. So we can use a neural network to classify objects into groups. And now all that is left is to train the neural network with image of 8s and not-8s so it learns to tell them apart.
+	\par
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig4.jpg}
+		\caption{Training data}\label{fig4}
+	\end{figure}
+	\begin{figure*}[t]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig5.png}
+	\includegraphics[width=0.9\linewidth]{fig6.png}
+	\caption{Good news and bad news}\label{fig5}
+	\end{figure*}
+	\begin{figure*}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig7.png}
+		\caption{A realistic deep convolution network.}\label{fig7}
+	\end{figure*}
+	Here are some of training data in Fig.~\ref{fig4}. When training the neural network, we should tell it the probability the image is an ``8'' is 100 \% and the probability it is not an ``8'' is 0 \%. Vice versa for the counter-example images.
+	\par
+	The good news is that the recognizer does work well on simple images where the letter is right in the middle of the image, but the bad news is that the recognizer totally fails to work when the letter isn't perfectly centered in the image.(see Fig.~\ref{fig5}). To solve the problem, the author proposed two solutions. One is searching with a sliding window, the other is using more data and training a deep neural network. But those two methods are all inefficient.
+	\par
+	There is a good way to make the neural network be smart enough to know that an ``8'' anywhere in the picture is the same thing without all that extra training.
+	\par
+	The solution is convolution. As a human, we intuitively know that pictures have a hierarchy or conceptual structure. We can instantly recognize the hierarchy in one picture. \Eg there is a picture of environmental portrait, we can figure out sightseeing and people in the picture. Most importantly, we recognize the idea of people no matter what the circumstance the people is on. And we don't have to re-learn the idea of people for every possible circumstance it could appear on.
+	\par
+	But now, the neural network we trained can't do this. It thinks that an ``8'' in a different part of the image is an entirely different thing. So a concept of translation invariance should be introduced to make the net know. We can using a process called convolution to approach the goal.
+	\par
+	Convolution work in the following steps:
+	\begin{enumerate}
+		\item Break the image into overlapping image tiles.
+		\item  Feed each image tile into a small neural network.
+		\item Save the results from each tile into a new array.
+		\item Downsampling.
+		\item Make a prediction.
+	\end{enumerate}
+	\par
+	Then add more steps: convolution, maxpooling, and finally a fully-connected network. Here's what a more realistic deep convolution network looks like Fig.~\ref{fig7}.
+{\small
+	\bibliographystyle{ieee}
+	\bibliography{reference}
+}
+\end{document}
