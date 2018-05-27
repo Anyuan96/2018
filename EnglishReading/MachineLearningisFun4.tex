@@ -1,0 +1,109 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[breaklinks=true,bookmarks=false]{hyperref}
+
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+%\setcounter{page}{4321}
+
+\begin{document}
+
+	\title{Machine Learning is Fun Part 4}	
+	\author{Yuan An}
+	\maketitle
+	In the last three parts, machine learning is used to solve isolated problems, \eg predicting house sale prices, generating new data based on existing data and recognizing objects, that have only one step. Now I　am learning something about Modern Face Recognition with Deep Learning according to the article written by Geitgey~\cite{MLisFun}.
+	\par
+	When we enter Qzone, we could notice that there is a box on the right side column. On the box, you can see a picture uploaded by your friends with face , an question that ``He or she is your friend xxx?'' and two buttons with ``yes'' or ``no''. It seems like the function Facebook released that has an ability to recognize face in the photograph. In the old days, Facebook used to make you to tag your friends in photos by clicking on them and typing in their name. Now as soon as you upload a photo, Facebook tags everyone in a magic style.
+	\par
+	In part 4 of Geitgey's article~\cite{MLisFun}, the author was talking about how modern face recognition works. He took telling Will Ferrell (famous actor) apart from Chad Smith (famous rock musician) as an example (see Fig.~\ref{fig1}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig1.jpg}
+		\caption{Chad Smith (left) and Will Ferrell (right)} \label{fig1}
+	\end{figure}
+	\par
+	Face recognition is really a series of several related problems:
+	\begin{enumerate}
+		\item Look at a picture and find all the faces in it.
+		\item Focus on each face and be able to understand that even if a face is turned in a weird direction or in bad lighting, it is still the same person.
+		\item Be able to pick out unique features of the face that you can use to tell it apart from other people--like how big the eyes are, how long the face is, etc. 
+		\item Compare the unique features of that face to all the people you already know to determine the person's name.
+	\end{enumerate}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig2.png}
+		\caption{Face recognition in mobile phone.}\label{fig2}
+	\end{figure}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig3.png}
+		\caption{HOG image.}\label{fig3}
+	\end{figure}
+	\par
+	As a human, your brain is wired to do all of this automatically and instantly. But computers are not capable of this kind of high-level generalization. So what humans do is teaching computers how to do each step in this process separately. 
+	\par
+	The fist step in face recognition is face detection. We can find this function in our mobile phones (see in Fig.~\ref{fig2}).
+			\begin{figure*}[t]
+		\centering
+		\includegraphics[width=\linewidth]{fig5.png}
+		\caption{The face image after processing.}\label{fig5}
+	\end{figure*}
+	\par
+	Face detection is a great feature for cameras. When the camera can automatically pick out faces, it can make sure that all faces are in focus before if takes the picture. It went mainstream in the early 2000's when Paul Viola and Michael Jones invented a way to detect face that was fast enough to run on cheap cameras. More about Viola–Jones object detection framework in~\cite{Viola01rapidobject,Viola01robustreal-time}. Now there are more reliable solutions. In the part 4 of the article, a method named Histogram of Oriented Gradients (HOG) is applied~\cite{Dalal2005Histograms}.
+
+	\par
+	To find faces in an image, it should be converted to gray level image. Then processing it by several steps, the original image is turned into a HOG. And find the part of the image that looks the most similar to a kown HOG pattern that was extracted from a bunch of other training faces, as shown in Fig.~\ref{fig3}.
+	\par
+	The next step is posing and projecting faces. An isolated face was gotten in the last step. Now the problem should be deal with that faces turned different directions look totally different to a computer. So we will try to warp each picture so that the eyes and lips are always in the sample place in the image. After doing this, it is a lot easier for computer to compare faces in the next steps. To do this, an algorithm called face landmark estimation would be introduced. There are lots of ways to do this, the approach invented in 2014 by Vahid Kazemi and Josephine Sullivan~\cite{Kazemi2014One} is going to used.
+	\par
+	The basic idea of the approach is that there are 68 specific points (called landmarks) that exist on the human face (see Fig.~\ref{fig4}). Then a machine learning algorithm will be trained to be able to find these 68 specific points on any face.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig4.png}
+		\caption{The 68 landmarks exist on the human face.}\label{fig4}
+	\end{figure}
+	\par
+	Now that we know were the eyes and mouth are, then rotate, scale and shear the image so that they eyes and mouth are centered as shown in Fig.~\ref{fig5}.
+	\par
+	The third step is Encoding faces. The simplest approach to face recognition is to directly compare the unknown with all the pictures. Then find the most similar face, and it must be the same person. But there's actually a huge problem with that approach. A site like Facebook with billions of users and a trillion photos can't possibly loop through every previous-tagged face to compare it to every newly uploaded picture. So extracting a few basic measurements from each face is a good way. Then measure unknown face that the same way and find the known face with the closest measurements.
+	\par
+	Therefore, the solution is to train a deep convolutional neural network to generate 128 measurements for each face. The training process works by looking at 3 face images at a time:
+	\begin{enumerate}
+		\item Load a training face image of a known person.
+		\item Load another picture of the same known person.
+		\item Load a picture of a totally different person.
+	\end{enumerate}
+	\par
+	Then the algorithm looks at the measurements it is currently generateing for each of those three image. It then tweak the neural network slightly so that it makes sure the measurements it generates for \#1 and \#2 are slightly closer while making sure the measurements for \#2 and \#3 are slightly further apart (the processing seems like Fig.~\ref{fig6}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig6.png}
+		\caption{A single triplet training step.}\label{fig6}
+	\end{figure}
+	\par
+	After repeating this step millions of times, the neural network learns to reliably generate 128 measurements for each person.
+	\par
+	The final step is finding the person's name from the encoding. This is actually the easiest step in the whole process. So what we should do is using any basic machine learning classification algorithm, \eg a linear SVM classifier.
+	
+
+		
+
+
+
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
+
