@@ -1,0 +1,125 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[breaklinks=true,bookmarks=false]{hyperref}
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+	\title{\LaTeX\ Author Guidelines for CVPR Proceedings}	
+	\author{Yuan An}
+	\maketitle
+	In the last article, we knew something about face recognition using the neural network. Today, I continue to read the article of Geitgey~\cite{MLisFun}. The part four of this article is talking about another application of the neural network-- Machine Translation. A good example of machine translation is Google Translate, which can instantly translate between 100 different human languages in a magic way. And it is even available on mobile phones and smart-watches. It does bring convenience to us even in academic scene.
+	\par
+	Over the past years, deep learning has totally changed approach to machine translation. Deep learning researchers who know almost nothing about language translation are beating the best expert-built language translation system in the world using simple machine learning solutions.
+	\par
+	The breakthrough technology is called sequence-to-sequence learning. It is very powerful technique that can be used to solve many kinds problems.
+	\par
+	The simplest approach to make computer translating human language is to replace every word in a sentence with the translate word in the target language. As shown in  Fig.~\ref{fig1}, this is a simple example of translating from Spanish to English word-by-word.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig1.png}
+		\caption{Replace each Spanish word with the matching English word.} \label{fig1}
+	\end{figure}
+	\par
+	It is easy to implement but the results are bad for its ignoring grammar and context. So the next thing that we should do is to add language-specific rules to improve the results. \Eg we might translate common two-word phrases as a single group, and swap the order nouns and adjectives since they usually appear in reverse order in Spanish from how they appear in English (see Fig.~\ref{fig2}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig2.png}
+		\caption{Swap the order of nouns and adjectives.} \label{fig2}
+	\end{figure}
+	\par
+	It did work better. So theoretically, if more rules is keeping being added until it can handle every part of grammar, the program should be able to translate any sentence. This is how earliest machine translation systems worked. Linguists came up with complicated rules and programmed them in one-by-one. Some of the smartest linguists in the world labored for years during the Cold War to create translation systems as a way wo interpret Russian communications more easily (more thing about this is on Wikipedia: \emph{Georgetown--IBM experiment}).
+	\par
+	But this only worked for simple, plainly-structed documents like weather reports. It didn't work reliably for real-world documents. But the human language doesn't follow a fixed set of rules. Human languages are full of special case, regional variations or just flat out rule-breaking. The way we speak English more influenced by who invaded wo hundreds of years ago than it is by someones sitting down and defining grammar rules (called Middle English).
+	\par
+	So a statistic method should be used to make computers translate better. The new translation approaches were developed using models based on probability and statistics instead of grammar rules. 
+	\par
+	Building a statistics-based translation system requires lots of training where the exact same text is translated into at least two languages. This double-translated text is called \emph{pararel corpora}. And computers can use parallel corpora to guess how to convert text from one language to another.
+	\par
+	The most important thing for computers is thinking in probabilities. The fundamental difference with statistical translation system is that they don't try to generate one exact translation instead they generate thousands of possible translations and then rank those translations by likely each is to be correct. They estimate how ``correct'' something is by how similar it is to the training data.
+	\par
+	The first step is break original sentence into chunks (as shown in Fig.~\ref{fig3}) that can each be easily translated.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig3.png}
+		\caption{Break original sentence into chunks.} \label{fig3}
+	\end{figure}
+	\par
+	Then find all possible translations for each chunk how humans have translated those same chunks of words in training data. We are looking how actual people translated these same chunks of words instead of looking up these chunks in a simple translation dictionary. It will help us capture all of the different ways they can be used in different contexts (see Fig.~\ref{fig4}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig4.png}
+		\caption{How actual people translate chunks.}\label{fig4}
+	\end{figure}
+	\par
+	Some of these possible translations are used more frequently than others. So we can give it a score based on how frequently each translation appears in the training data.
+	\par
+	The third step is generating all possible sentences and find the most likely one. That is to say that use every possible combination of these chunks to generate a bunch of possible sentences. Then need to scan through all of these generated sentences to find the one that is that sounds the ``most human''. We can give the sentence that would not be very similar to any sentences a low probability score while give the sentence similar to those in dataset a high probability score. After doing this, we can pick out the sentence that has the most likely chunk translations while also being the most similar overall to real English sentences.
+	\par
+	But it also have limitations. It is complicated to build and maintain. Every new pair of languages you want to translate requires experts to tweak and tune a new multi-step translation pipeline.
+	\par
+	However, there is a approach to make computer translate better without all those expensive experts. The core of machine translation is a black box system that learns how to translate by itself.
+	\par
+	In 2014, KyunHyun Cho's team made a breakthrough~\cite{KyunHyun}. They found a way to apply deep learning to build this black box system. Their deep learning model takes in a parallel corpora and uses it to learn how to translate between those two languages without any human intervention.
+	\par
+	Two big ideas make this possible-- recurrent neural networks and encodings. By combining these two ideas in a clever way, a self-learning translation system can be built. These two ideas have been introduced in previous articles.
+	\par
+	After using an RNN to encode a sentence into a set of unique numbers, take two RNNs and hook them up end-to-end (see Fig.~\ref{fig5}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig5.png}
+		\caption{Hook up two RNNs end-to-end.} \label{fig5}
+	\end{figure} 
+	\par
+	The first RNN could generate the encoding that represents a sentence. Then the second RNN could generate the encoding and just do the same logic in reverse to decode the original sentence again. Of course it is not useful to encode and decode the original sentence. But we can train the second RNN to decode the sentence into Spanish instead of English (as shown in Fig.~\ref{fig6}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig6.png}
+		\caption{Replace the second RNN with Spanish.}\label{fig6}
+	\end{figure}
+	\par
+	Just like that, there is a generic way of converting a sequence of English words into an equivalent sequence of Spanish words.
+	\par
+	This approach works for almost any kind of sequence-to-sequence problems. And the power of sequence-to-sequence models is infinity.
+	\par
+	A team of Google replaced the first RNN with a CNN. This allows the input to be a picture instead of a sentence (the structure of the model is shown in Fig.~\ref{fig8}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig8.png}
+		\caption{The model structure of the Google's team.}\label{fig8}
+	\end{figure}
+	\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig7.png}
+	\caption{Image from Andrej Karpathy's paper.}\label{fig7}
+	\end{figure}
+	\par
+	Andrej Karpathy expanded on these ideas to build a system capable of describing images in great detail by processing multiple regions of an image separately (see Fig.~\ref{fig7})~\cite{Karpathy}.
+
+	%序列模型一直是自然语言处理领域中的一类重要模型。从2017年5月起，Facebook与Google的这两篇论文更是将对序列模型的讨论推向了一个新的高潮。
+	
+	%2017年5月，Facebook AI Research发布了一篇论文p《Convolutional Sequence to Sequence Learning》[1]，宣告其在机器翻译任务中取得了state-of-the-art的成果。在该文章中，特别强调了该文章所提出的模型（简称ConvS2S）不仅仅在翻译任务上效果显著，而且所需训练时间也很短。然而，仅仅一个月之后，Google团队就发布了另一篇论文《Attention is All You Need》[2]，将机器翻译任务中state-of-the-art的水平提高了2 BLEU。而且，Google的这篇论文还特别强调了其不仅在翻译效果上超越了ConvS2S，而且，其模型（Transformer）所需的训练时间也比ConvS2S要更短。可以看到，Facebook与Google在翻译任务上的角逐已经愈发激烈了。
+
+
+	
+
+
+
+		
+
+
+
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
+
