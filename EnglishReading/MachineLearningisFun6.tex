@@ -1,0 +1,98 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[breaklinks=true,bookmarks=false]{hyperref}
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+	\title{Machine Learning is Fun Part 6}	
+	\author{Yuan An}
+	\maketitle
+	In the last article, the machine translation is introduced. In the part six of Geitigey's article~\cite{MLisFun}, it is talking about speech recognition. It's built into phones, game consoles and smart watches. It's even automating homes. \Eg TmallGenie (see Fig.~\ref{fig1})developed by Alibaba A.I.Labs is a smart speech terminal, like your personal assistant. It can allows you to order pizza, get a weather report or buy trash bags.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{tmallgenie.png}
+		\caption{TmallGenie} \label{fig1}
+	\end{figure}
+	\par
+	The reason is that deep learning finally made speech recognition accurate enough to be useful outside of carefully controlled environments. And Andrew Ng has long predicted that as speech recognition goes from 95\% accurate to 99\% accurate, it will become a primary way that we interact with computer.
+	\par
+	In the last article, we think machine learning as a black box. But machine learning isn't always a black box. What speech recognition would do is feed sound recordings into a neural network and train it to produce text, as shown in Fig.~\ref{fig2}.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig2.png}
+		\caption{How speech recognition might be?} \label{fig2}
+	\end{figure}
+	\par
+	But there is a big problem that speech varies in speed. One person might say "hello" very quickly and another person might say "heeelllllooooo" very slowly. It produced a much longer sound file with much more data. However both sound files should be recognized as exactly the same text--"hello". But aligning audio files of various lengths to a fixed-length piece of text automatically turns out to be pretty hard. But we can use some special tricks and extra precessing in addition to a deep neural network.
+	\par
+	The first step is turning sounds into bits. As we all know, sound is transmitted as waves (see Fig.~\ref{fig3}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig3.png}
+		\caption{A waveform of "Hello"} \label{fig3}
+	\end{figure}
+	\par
+	Sound waves are two-dimensional. At every moment in time, they have a single value based on the height of the wave. To turn this sound into numbers, record of the height of the wave at equally-spaced points as shown in Fig.~\ref{fig4}.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig4.png}
+		\caption{Sampling a sound wave} \label{fig4}
+	\end{figure}
+	\par
+	This is called sampling. Take a reading thousands of times a second and recording a number representing the height of the sound wave at that point in time.
+	\par
+	Thanks to the Nyquist theorem~\cite{nyquist}, we can use math to perfectly reconstruct the original sound wave from the space-out samples--as long as we sample at least twice as fast as the highest frequency we want to record.
+	\par
+	The next step is pre-processing sampled sound data. After sampling, we could feed these numbers right into a neural network. But trying to recognize speech patterns by processing these samples directly is difficult. So we can doing some pre-processing on the audio data.
+	\par
+	First, group sampled audio into 20-millisecond-long chunks. Then plot those numbers as a simple line graph gives a rough approximation of the original sound wave for that 20 millisecond period of time (see Fig.~\ref{fig5}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig5.png}
+		\caption{The simple line graph of sampled audio sound wave.} \label{fig5}
+	\end{figure}
+	\par
+	This recording is only 1/50 of a second long. But it is a complex mish-mash of different frequencies of sound. They contain some low sounds, some mid-range sounds, and even some high-pitched sounds sprinkled in. 
+	\par
+	To make this data easier for a neural network to process, we are going to break apart this complex sound wave into it’s component parts. We’ll break out the low-pitched parts, the next-lowest-pitched-parts, and so on. Then by adding up how much energy is in each of those frequency bands (from low to high), we create a fingerprint of sorts for this audio snippet.
+	\par
+	We do this using a mathematic operation called a Fourier transform. It breaks apart the complex sound wave into the simple sound waves that make it up. Once we have those individual sound waves, we add up how much energy is contained in each one (see Fig.~\ref{fig6}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig6.jpg}
+		\caption{There is a lot of low-frequency energy and not much energy in the higher frequencies. That’s typical of “male” voices.} \label{fig6}
+	\end{figure}
+	\par
+	If we repeat this process on every 20 millisecond chunk of audio, we can get a spectrogram like Fig.~\ref{fig7}.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig7.png}
+		\caption{The total spectrogram.} \label{fig7}
+	\end{figure}
+	\par
+	In the spectrogram, we can see musical notes and other pitch pattern in audio data. A neural network can find patterns in this kind of data more easily than raw sound waves. So this is the data representation we’ll actually feed into our neural network.
+	\par
+	Now that we have an easy-to-process format audio, it can be fed into a deep neural network (see Fig.~\ref{fig8}. The input of the neural network is 20 millisecond audio chunks. For every little audio slice, it will try to figure out the letter that correspond the sound currently being spoken.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig8.png}
+		\caption{The neural network model of speech recognition} \label{fig8}
+	\end{figure}
+	We’ll use a recurrent neural network — that is, a neural network that has a memory that influences future predictions. That’s because each letter it predicts should affect the likelihood of the next letter it will predict too. 
+	\par
+	Now we can roughly predict what people said. But there are many problem to be solved. We can learn more about it from the paper of Graves and Gomez~\cite{Graves}. This is about an algorithm to deal with variable-length audio which is called Connectionist Temporal Classification (CTC). 
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
+
