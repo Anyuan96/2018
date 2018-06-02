@@ -1,0 +1,108 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[colorlinks,linkcolor=red,anchorcolor=blue,citecolor=green,backref=page]{hyperref}
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+	\title{Machine Learning is Fun Part 7}	
+	\author{Yuan An}
+	\maketitle
+	In the last article, speech recognition was introduced. In the part 7 of Geitgey's article~\cite{MLisFun}, whose title is \emph{Abusing Generative Adversarial Networks to Make 8-bit Pixel Art}, something about generative adversarial networks is being introduced.
+	\par
+	Generative models allow a computer to create data--like photos, movies or music--by itself.
+	\par
+	The paper of Alec Radford changed how everyone thought about building generative models with machine learning~\cite{DCGAN}. The new system is called Deep Convolutional Generative Adversarial Networks (or DCGANs for short). 
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig1.png}
+		\caption{Pictures of bedrooms created by DCGAN.} \label{fig1}
+	\end{figure}
+	\par
+	DCGANs are able to hallucinate original photo-realistic pictures by using a cleaver combination of two deep neural networks that compete with each other. As shown in Fig.~\ref{fig1}, there are pictures of bedroom created by DCGAN. Generative models seems to be thought as a stepping stone towards building AI systems that can consume raw data from the world and automatically build understanding from it.
+	\par
+	What is the goal of generative models? For example, when you look at Fig.~\ref{dog}, you can instantly know this is a picture of a dog. If you are asked to draw a dog, you may draw a furry thing with four legs and a tail at least. But the computer has no idea  that the picture represents a concept because the picture is just a grid of numbers representing the color of each pixel to computer. 
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig2.png}
+		\caption{A dog} \label{dog}
+	\end{figure}
+	\par
+	So the idea is that if the computer can generate pictures of something, it must have an understanding of it. Image that a computer have been fed with thousands of pictures of dogs and after seeing those pictures, the computer was able to generate new pictures of dogs on its own--including different dog breeds and pictures from different angles.
+	\par
+	If the computer was able to do this and the pictures it produced had the right number of legs, tails, and ears, it would prove that the computer knows what parts go into making up a ``dog'' even though no one told it explicitly. So a good generative model is proof of basic understanding.
+	\par
+	That's why researchers are so excited about building generative models. They seem to be a way to train computers to understand concepts without being explicitly taught the meaning of those concepts. That's a big step over current systems that can only learn from training data that has been painstakingly pre-labeled by human.
+	\par
+	To build a DCGAN, two deep neural networks are built. Then make them fight against each other, endlessly attempting to out-do one another. In the process, they both become stronger.
+	\par
+	Pretend that the first deep neural network is a brand new police officer who is being trained to spot counterfeit money. 
+	For finding objects in pictures, a standard convolutional neural network can be used for doing this. The basic idea is that the neural network that takes in an image, processes it through several layers that recognize increasingly complex features in the image and then it outputs a single value--in this case, whether or not the image contains a picture of real money.
+	The first neural networks is called the Discriminator, and its structure is shown in Fig.~\ref{discriminator}.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig3.png}
+		\caption{The Discriminator Network} \label{discriminator}
+	\end{figure}
+	\par
+	Similarly, pretend the second neural network is a brand new counterfeiter who is just learning how to crate fake money. For this second neural network, reverse the layers in a normal CNN so that everything runs backwards. That is to say, it takes in a list of values and outputs a picture instead of taking in a picture and outputting a value. The second neural network is called the Generator, and its structure is shown in Fig.~\ref{generator}.
+	\begin{figure}[h]	
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig4.png}
+		\caption{The Generator Network} \label{generator}
+	\end{figure}
+	So now we have a police officer (the Discriminator) looking for fake money and a counterfeiter (the Generator) that is printing fake money. 
+	\par
+	In the first round, the Generator will create pathetic forgeries that barely resemble money at all because it knows absolutely nothing about what money is supposed to look like (see Fig.\ref{first}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig5.png}
+		\caption{The Generator makes the first fake dollar.} \label{first}
+	\end{figure}
+	\par
+	But the Discriminator is equally perform badly at its job of recognizing money. It won't know the difference (as shown in Fig.~\ref{fig6}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig6.png}
+		\caption{The Discriminator thinks the dollar is real.} \label{fig6}
+	\end{figure}
+	\par
+	And now, we tell the discriminator that the dollar is actually fake. Then we show it a real dollar and make it looking for a new detail to help it separate the real one from the fake one. 
+	\par
+	For example, the Discriminator might notice that the real money has a picture of a person on it while the fake one doesn't. Using this knowledge, the Discriminator learns how tell the fake from the real one. Now the Discriminator can spot very bad fake dollars like in Fig.~\ref{fig7}.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig7.png}
+		\caption{The Discriminator levels up.} \label{fig7}
+	\end{figure}
+	\par
+	Then we tell the Generator that it's money images are suddenly getting rejected as fake and tell it the Discriminator is looking for faces now, so it should put a face on the bill for confuse the Discriminator (see Fig.~\ref{fig8}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig8.png}
+		\caption{The Generator makes a very slightly better counterfeit dollar.} \label{fig8}
+	\end{figure}
+	\par
+	Now the fake money are being accepted as valid again. So the Discriminator has to look again at the real dollar and find a new way to tell it apart from the fake one. 
+	\par
+	After many times of this process, the Generator and the Discriminator both are experts. The Generator is producing near-perfect counterfeits and the Discriminator has turned into a Master Detective looking for the slightest mistakes.
+	\par
+	Finally, when both networks are sufficiently trained so that humans are impressed by the fake images, we can use the fake images for whatever purpose we want.
+	\par
+	Then the author applied this to video games. Build a DCGAN that tries to produce screenshots of imaginary video games for the Nintendo Entertainment Systems (NES) based on screenshots of real games.
+	\par
+	Now there's certainly a lot of hype around generative models. GANs are already being called the future of AI despite being badly hard to train and limited to generating tiny images. But things always keep improving, it won't be too long before generative models are a mainstream tool helping us create. And we can learn more about GAN in the paper of Goodfellow \etal~\cite{Goodfellow2014Generative}
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
+
