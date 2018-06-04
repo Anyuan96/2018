@@ -1,0 +1,114 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[colorlinks,linkcolor=red,anchorcolor=blue,citecolor=green,backref=page]{hyperref}
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+	\title{Machine Learning is Fun Part 8}	
+	\author{Yuan An}
+	\maketitle
+	In the last article, we have known something about GANs.  In the part 8 of Geitgey's article~\cite{MLisFun}, the author talked about how the most advanced deep neural networks were be fooled.
+	\par
+	Almost as long as programmers have been writing computer programs, computer hacker have been figuring out ways to exploit those programs. Systems powered by deep learning algorithms seem to be safe from human interference, but it can be hacked with a few tricks. For example, the cat in Figure~\ref{fig1} is recognized as a toaster.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig1.png}
+		\caption{A siamese cat is recognized as a toaster.} \label{fig1}
+	\end{figure}
+	\par
+	So before launching a new system powered by deep neural networks, we should learn how to break them and what we can do to protect ourselves from attackers.
+	]
+	\par
+	Ebay, an auction website, prohibits selling items like live animals. But enforcing these kinds of rules are hard if the website have millions of users. Hiring hundreds of people is not a good method to solve this problem. Instead, we can use deep learning to automatically check auction photos for prohibited items and flag the ones that violate the rules.
+	\par
+	So this is a typical image classification problem. A deep convolutional neural network could be trained to tell prohibited items apart from allowed items.
+	\par
+	As given in part 3, we need a data set of thousands of images from past auction listings for training the neural network to tell allowed items from prohibited items. To train the neural network, we use the standard back-propagation (BP) algorithm. It is an algorithm where we pass in a training picture, pass in the expected result for that picture, then walk back through each layer in the neural network adjusting their weights slightly to make them a little better at producing the correct output for that part. The procedure of BP algorithm is shown in Figure~\ref{BP}. Then repeat this thousands of times with thousands of photos until the model reliably produces the correct results with an acceptable accuracy.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig2.png}
+		\caption{Use BP algorithm to train the neural network.}\label{BP}
+	\end{figure}
+	\par
+	The end result is a neural network that can reliably classify images.
+	\par
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig3.png}
+		\caption{Small changes to the input photo should only cause small changes to the final prediction.} \label{fig3}
+	\end{figure}
+	\par
+	Convolution neural networks are powerful models that consider the entire image when classifying it. In many image recognition tasks, they can equal or even beat human performance. So changing a few pixel in the image to be darker ro lighter shouldn't have a big effect on the final prediction. It might changed the final likelihood slightly (see Figure~\ref{fig3}, but it shouldn't flip an image from ``prohibited'' to  `` allowed''.
+	\par
+	However a famous paper in 2013~\cite{Christian} discovered that this is not always true. If you know exactly which pixels to change and exactly how much to change them, you can intentionally force the neural network to predict the wrong output for a given picture without changing the appearance of the picture very much. That is to say, we can intentionally craft a picture that is clearly a prohibited item but which completely fools our neural network.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig4.png}
+		\caption{The dividing line.} \label{fig4}
+	\end{figure}
+	\par
+	A machine learning classifier works by finding a dividing line between the things it's trying to tell apart. In Figure~\ref{fig4}, this is a simple two-dimensional classifier that's learned to separate green points from red points.
+	\par
+	But what if we want to trick it into mis-classifying one of the red points as a green point?
+	\par
+	If we add a small amount to the Y value of a red point right beside the boundary, the red point is pushed over into green territory (see Figure~\ref{fig5})
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig5.png}
+		\caption{Push a red point into green territory.} \label{fig5}
+	\end{figure}
+	Similarly, to trick a classifier, we can change the pixels of a images very slightly that is not too obvious to a human so that the image completely tricks the neural network into thinking that the picture is something else (as shown in Figure~\ref{fig6}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig6.png}
+		\caption{Turning a cat into a toater.} \label{fig6}
+	\end{figure}
+	\par
+	And how to trick a neural network? As talked above, we have known about the basic process of training a neural network to classify photos. What if we tweaked the input image itself until we get the answer we want?
+	\par
+	Now take the already-trained neural network and ``train'' it again like what is shown in Figure~\ref{fig7}.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig7.png}
+		\caption{Re-train the neural network.} \label{fig7}
+	\end{figure}
+	\par
+	So here's the new algorithm:
+	\begin{enumerate}
+		\item Feed in the photo that we want to hack.
+		\item Check the neural network's prediction and see how far off it is from the answer we want to get for this photo.
+		\item Tweak our photo using back-propagation to make the final prediction slightly closer to the answer we want to get.
+		\item Repeat steps 1-3 a few thousand times with the same photo until the network gives us the answer we want.
+	\end{enumerate}
+	\par
+	After doing this, we will have an image that fools the neural network without changing anything inside the neural network itself.
+	\par
+	The only problem is that by allowing any single pixel to be adjusted without any limitations, the changes to the image can be drastic enough that you will se them. They will show up as discolored spots or wavy areas (see Figure~\ref{fig8}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig8.png}
+		\caption{A hacked image with no constraints on how much a pixel can be tweaked.} \label{fig8}
+	\end{figure}
+	\par
+	To prevent these obvious distortions, we can add a simple constraint to algorithm.
+	\par
+	And what a hacked image can do? Researchers have recently shown that you can train your own substitute neural network to mirror another neural network by probing it to see how it behaves~\cite{Papernot}. And these attack methodology isn't limited to just images. You can use the same kind of approach to fool classifiers that work on other types of data.
+	\par
+	But how can we protect ourselves against these attacks? The short answer is that no one is entirely sure yet. Preventing these kinds of attacks is still an on-going area of research.
+	\par
+	This area of research is only a few years old, so it is easy to get caught up by reading a few key papers: Intriguing properties of neural networks~\cite{Christian}, Explaining and Harnessing Adversarial Examples~\cite{Goodfellow}, Practical Black-Box Attacks against Machine Learning~\cite{Papernot} and Adversarial examples in the physical world~\cite{Kurakin}.
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
+
