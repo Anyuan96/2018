@@ -1,0 +1,60 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[colorlinks,linkcolor=red,anchorcolor=blue,citecolor=green,backref=page]{hyperref}
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+	\title{Deep Learning}	
+	\author{Yuan An}
+	\maketitle
+	In the last article, convolutional neural networks and image understanding with deep convolutional networks have been introduced. In the rest part of the paper of Lecun~\etal~\cite{DeepLearning}, distributed representations and language processing and recurrent neural networks will be talked about.
+	\par
+	\section*{Distributed representations and language processing}
+	Deep learning theory shows that deep nets have two different exponential advantages over classic learning algorithm that do not use distributed representations~\cite{Bengio2005The}. Both of these advantages arise from the power of composition and depend on the underlying data-generating distribution having an appropriate componential structure~\cite{Bengio2013Representation}. First, learning distributed representations enable generalization to new combination of the values of learned features beyond those seen during training. Second, composing layers of representation in a deep net brings the potential for another exponential advantage.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig1.png}
+		\caption{Visualizing the learned word vectors. On the left is an illustration of word representations learned for modeling language, non-linearly projected to 2D for visualization using the t-SNE algorithm. On the right is a 2D representation of phrases learned by an English-to-French encoder-decoder recurrent neural network.} \label{fig1}
+	\end{figure}
+	\par
+	The hidden layers of a multi-layer neural network learn to represent the input data for predicting target output more easily. There is a good example of training a multi-layer neural network to predict the next word in a sequence from a local context of earlier words~\cite{Bengio2003A}. Each word in the context is presented to the network as a one-of-N vector. That is to say, one component has a value of 1 and the the rest are 0. In the first layer, each word creates a different pattern of activations, or word vectors (see Figure~\ref{fig1}).
+	\par
+	When trained to predict the next word in a new story, for example, the learned word vectors for Tuesday and Wednesday are very similar, as are the word vectors for Sweden and Norway. Such representations are called distributed representations because their elements (the features) are not mutually exclusive and their many configurations correspond to the variations seen in the observed data. These word vectors are composed of learned features that were not determined ahead of time by experts, but automatically discovered by the neural network. Vector representations of words learned from text are now very widely used in natural language applications.
+	\section*{Recurrent neural networks}
+	When it comes to back-propagation firstly, the most exciting use was for training recurrent neural networks (RNNs). For tasks involved in sequential inputs, such as speech and language, researchers prefer use RNNs (see Figure~\ref{fig2}). RNNs process an input sequence one element at a time, maintaining in their hidden units a `state vector' that implicitly contains information about the history of all the past elements of the sequence. When we consider the outputs of the hidden units at different discrete time steps as if they were the outputs of different neurons in a deep multi-layer network (Figure~\ref{fig2}, right), it becomes clear how we can apply backpropagation to train RNNs.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig2.png}
+		\caption{A recurrent neural network and the unfolding in time of the computation involved in its forward computation. The artificial neurons get inputs from other neurons at previous time steps (this is represented with the black square, representing a delay of one time step, on the left).} \label{fig2}
+	\end{figure}
+	\par
+	RNNs are very powerful dynamic systems, but training them has proved to be problematic because the back-propagated gradients either grow or shrink at each time step, so over many time steps they typically explode or vanish.
+	\par
+	Owing to advances in their architecture and ways of training them, RNNs have been found to be very good at predicting the next character in the text~\cite{Sutskever2016Generating} or the next word in a sequence~\cite{Mikolov2013Distributed}, but they can also be used for more complex tasks.
+	\par
+	Instead of translationg the meaning of a French sentence into an English sentence, one can learn to `translate' the meaning of an image into an English sentence.
+	\par
+	RNNs, once unfolded in time, can be seen as very deep feedforward networks in which all the layers share the same weights. Although their main purpose is to learn long-term dependencies, theoretical and empirical evidence shows that it is difficult to learn to store information for very long.
+	\par
+	To solve this problem, one idea is to augment the network with an explicit memory. The first proposal of this kind is the long short-term memory (LSTM) networks that use special hidden units, the natural behaviour of which is to remember inputs for a long time.
+	\par
+	LSTM networks have subsequently proved to be more effective than conventional RNNs, especially when they have several layers for each time step~\cite{Graves2013Speech}, enabling an entire speech recognition system that goes all the way from acoustics to the sequence of characters in the transcription.
+	\section*{The future of deep learning}
+	Unsupervised learning had a catalytic effect in reviving interest in deep learning, but has since been overshadowed by the successes of purely supervised learning.
+	\par
+	Natural language understanding is another area in which deep learning is poised to make a large impact over the next few years.
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
+
