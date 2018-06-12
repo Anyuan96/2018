@@ -1,0 +1,47 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[colorlinks,linkcolor=red,anchorcolor=blue,citecolor=green,backref=page]{hyperref}
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+	\title{Automatic Analysis of Facial Affect: A Survey of Registration, Representation, and Recognition}	
+	\author{Yuan An}
+	\maketitle
+	Today, I read a review paper \emph{Automatic Analysis of Facial Affect: A Survey of Registration, Representation, and Recognition} by Sariyanidi~\cite{Auto}. The paper reviews the progress across a range of affect recognition applications to shed light on these fundamental questions. And it analyses the state-of-the-art solutions by decomposing their pipelines into fundamental components, namely face registration, representation, dimensionality reduction and recognition. Then the role of these components is discussed and the models and new trends that are followed in their design are highlighted. Moreover, the authors provide a comprehensive analysis of facial representations by uncovering their advantages and limitations, elaborate on the type of information they encode and discuss how they deal with the key challenges of illumination variations, registration errors, head-pose variations, occlusions, and identity bias.
+	\section*{Introduction}
+	The production, perception and interpretation of facial expressions have been analyzed for a long time across various disciplines such as biology, psychology, neuroscience, sociology and computer science. The authors tell us the difference of between cognitive sciences and computer vision and machine learning in application. While cognitive sciences provide guidance to the question \emph{what} to encode in facial representations, computer vision and machine learning influence \emph{how} to encode this information. The appropriate cues to interpret facial expressions and how to encode them remain open questions.
+	\par
+	Facial representation can be divided into spatial or spatio-temporal. Spatial representations encode image sequences frame-by-frame, whereas spatio-temporal representations consider a neighborhood of frames. Another classification is based on the type of information encoded in space: appearance or shape. Appearance representations use textural information by considering the intensity values of the pixels, whereas shape representations ignore texture and describe shape explicitly.
+	\par
+	The main challenges in automatic affect recognition are head-pose variations, illumination variations, registration errors, occlusions and identity bias.
+	\par
+	Advances in the field, and the transition from controlled to naturalistic settings have been the focus of a number of survey papers. Zeng~\etal~\cite{Zeng2009A} focused on automatic affect recognition using visual and auditory modalities. Gunes and Schuller~\cite{Gunes2013Categorical} highlighted the continuity aspect for affect recognition both in terms of input and system output.
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig1.png}
+		\caption{The proposed conceptual framework to be used for the analysis and comparison of facial affect recognition systems. The input is a single image ($I_t$)for spatial representations or a set of frames ($\textbf{I}^{\omega}_{t}$) within a temporal window $\omega$ for spatio-temporal representations. The system output $Y_t$ is discrete if it is obtained through classification or continuous if obtained through regression. The recognition process can incorporate previous ({$Y_{t-1},\dots,Y_{t-n}$}) and/or subsequent ({$Y_{t+1},\dots,Y_{t+m}$}) system output(s).} \label{fig1}
+	\end{figure}
+	\par
+	Yet no survey has analyzed systems by isolating their fundamental components (see Figure~\ref{fig1}) and discussing how each component addresses the above-mentioned challenges in facial affect recognition.
+	\par
+	In the paper, the authors break down facial affect recognition systems into their fundamental components (see Figure~\ref{fig1}): facial registration, representation, dimensionality reduction and recognition. Then discuss the role of each component in dealing with the challenges in affect recognition. And they analyze facial representations in detail by discussing their advantages and limitations, the type of information they encode, their ability to recognize subtle expressions, their dimensionality and computational complexity. 
+	\par
+	\section*{Affect models and recognition}
+	Affect recognition systems aim at recognizing the appearance of facial actions or the emotions conveyed by the actions. The former set of systems usually rely on the Facial Action Coding System (FACS). FACS consists of facial Action Units (AUs), which are codes that describe certain facial configurations.
+	\par
+	The systems that recognize emotions consider basic or non-basic emotions. Basic emotions refer to the affect model developed by Ekman and his colleagues, who argued that the production and interpretation of certain expressions are hard-wired in our brain and are recognized universally. The emotions conveyed by these expressions are modelled with six classes: happiness, sadness, surprise, fear, anger and disgust. Basic emotions are believed to be limited in their ability to represent the broad range of everyday emotions~\cite{Gunes2013Categorical}.
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
+
