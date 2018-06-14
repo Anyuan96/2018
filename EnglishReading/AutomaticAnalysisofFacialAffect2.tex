@@ -1,0 +1,66 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[colorlinks,linkcolor=red,anchorcolor=blue,citecolor=green,backref=page]{hyperref}
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+	\title{Automatic Analysis of Facial Affect: A Survey of Registration, Representation, and Recognition}	
+	\author{Yuan An}
+	\maketitle
+	In the last article, the first two section of Sariyanidi~\etal~\cite{Auto} review paper is introduced. Today, face registration and spatial representations is talking about in brief.
+	\section*{Face Registration}
+	Face registration is a fundamental step for facial affect recognition. Depending on the output of the registration process, registration strategies can be categorized as whole face, part and point registration.
+	\subsection*{Whole Face Registration}
+	The region of interest for most systems is the whole face. The technique used to register the whole face can be categorised as rigid and non-rigid.
+	Rigid registration is generally performed by detecting facial landmarks and using their location to compute a global transformation (\eg Euclidean, affine) that maps an input face to a prototypical (typical) face. Many systems use the two eye points or the eyes and nose or mouth~\cite{Jiang,Littlewort}. The transformation can also be computed from more points (\eg 60-70) using techniques such as Active Appearance Models (AAM)~\cite{Cootes}. Alternatively to landmark-based approaches, generic image registration techniques such as Robust FFT~\cite{RobustFFT} or Lucas-Kanade approaches~\cite{Baker2004}.
+	\par
+	While rigid approaches register the face as a whole entity, non-rigid approaches enable registration locally and can suppress registration errors duo to facial activity. For instance, an express face (\eg smiling face) can be warped into a neutral face. Techniques such as AAM are used for non-rigid registration by performing piece-wise affine transformations around each landmark~\cite{LUCEY2012197}.
+	\subsection*{Parts Registration}
+	A number of appearance representation process face in terms of parts (\eg eyes, mouth), and may require the spatial consistency of each part to be ensured explicitly. The number, size and location of the parts to be registered may vary (\eg 2 large parts~\cite{Tong} or 36 small parts~\cite{Zhu}). Similarly to whole face registration, a technique used frequently for parts registration is AMM--the parts are typically localized as fixed-sized patches around detected landmarks.
+	\subsection*{Point Registration}
+	Points registration is needed for shape representations, for which registration involves the localization of fiducial point. Similarly to whole and parts registration, AMM is used widely for points registration. Points in a sequence can also be registered by localizing points using a point deector on the first frame and then racking them.
+	\section*{Spatial Representations}
+	Spatial representations encode image sequences frame-by-frame. There exists a variety of appearance representations that encode low or high-level information. Low-level information is encoded with low-level histograms(see Figure~\ref{fig1}), Gabor representations and data-driven representations such as those using bag-of-words (BoW). Higher level information is encoded using for example non-negative matrix factorization (NMF) or sparse coding. There exist hierarchical representations that consist of cascaded low and high-level representation layers. Several appearance representations are part-based. Shape representations are less common than appearance representations.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig.png}
+		\caption{Low-level histograms.} \label{fig1}
+	\end{figure}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig2.png}
+		\caption{Spatial representations. (a) Facial points; (b) LBP histograms; (c) LPQ histograms (d) HoG; (e) Gabor-based representation; (f) dense BoW; (g) GP-NMF; (h) sparse conding; (i) part-based SIFT; (j) part-based NMF.} \label{fig2}
+	\end{figure}
+	\subsection*{Shape Representations}
+	The most frequently used shape representation is the facial points representation, which describes a face by simply concatenating the $x$ and $y$ coordinates of a number of fiducial points. When the neutral face image is available, it can be used to reduce identity bias (see Figure~\ref{fig2}a). This representation reflects registration errors straightforwardly as it is based on either raw or differential coordinate values. Illumination variations are not an issue since the intensity of the pixels is ignored.
+	\subsection*{Low-level Histogram Representations}
+	Low-level histogram representations (see Figure~\ref{fig2}b, \ref{fig2}c, and \ref{fig2}d) first extract local features and encode them in a transformed image, then cluster the local features into uniform regions and finally pool the features of each region with local histograms. The representations are obtained by concatenating all local histograms.
+	\par
+	Low-level features are robust to illumination variations to a degree, as they are extracted from small regions. Also, they are invariant to global illumination variations (i.e. gray-scale shifts). Additionally, the histograms can be normalized (\eg unit-norm normalization~\cite{Dalal}) to increase the robustness of the overall representation.
+	\subsection*{Gabor Representation}
+	Another representation based on low-level features is the Gabor representation, which is used by various systems including the winner of the FERA AU dection challenge and AVEC.
+	\par
+	A Gabor representation is obtained by convolving the input image with a set of Gabor filters of various scales and orientations (see Figure~\ref{fig2}e)~\cite{M1993Distortion,Wiskott}.
+	\subsection*{Bag-of-Words Representation}
+	The BoW representation used in affect recognition~\cite{Sikka} describes local neighborhoods by extracting local features (i.e. SIFT) densely from fixed locations and then measuring the similarity of each of these features with a set of features in a dataset using locality constrained linear coding. The representation inherits the robustness of SIFT features against illumination variations and small registration error. The representation use spatial pyramid matching, a technique that performs histogram pooling and increases the tolerance to registration errors. This matching scheme encodes componential information at various scales (see Figure~\ref{fig2}f), and the layer that does not divided the image to subregions conveys holistic information.
+	\subsection*{High-level Data-driven Representations}
+	All representations discussed so far describe local texture (see Figure~\ref{fig2}a-f). Implicitly or explicitly, their features encode the distribution of edges. Recent approaches aim instead at obtain data-driven higher-level representations to encode features that are semantically interpretable from an affect recognition perspective. Two methods that generate such representations are NMF and sparse coding. Alternatively, various feature learning approaches can also be used~\cite{Paredes}.
+	\subsection*{Hierarchical Representations}
+	Low-level representations are robust against illumination variations and registration errors. On the other hand high-level representations can deal with issues such as identity bias and generate features that are semantically interpretable. Hierarchical representation encode information in a low to high level manner. Hierarchical representations can alternatively be designed straightforwardly by cascading well-established low and high level representations such as Gabor filters and sparse representations~\cite{Cotter2010Sparse}.
+	\subsection*{Part-based Representation}
+	Part-based representation process faces in terms of independently registered parts and thereby encode componential information. They discard configural information explicitly as they ignore the spatial relations among the registered parts (see Figure~\ref{fig2}j and~\ref{fig2}). Ignoring the spatial relationships reduces the sensitivity to head-pose variation. Part-based representations proved successful in spontaneous affect recognition tasks where head-pose variation naturally occurs.
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
+
