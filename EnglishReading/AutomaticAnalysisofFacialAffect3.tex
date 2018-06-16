@@ -1,0 +1,92 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[colorlinks,linkcolor=red,anchorcolor=blue,citecolor=green,backref=page]{hyperref}
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+	\title{Automatic Analysis of Facial Affect: A Survey of Registration, Representation, and Recognition}	
+	\author{Yuan An}
+	\maketitle
+	In the last article, facial registration and spatial representation is introduced~\cite{Auto}. Today, spatio-temporal representations is talked about in brief.
+	\section*{Spatio-temporal Representations}
+	Spatio-temporal representations consider a range of frames within a temporal window as a single entity, and enable modeling temporal variation in order to represent subtle expressions more efficiently. 
+	\par
+	They can discriminate the expressions that look similar in space (\eg closing eyes and eye blinking~\cite{Koelstra2010A,Sebastian}), and facilitate the incorporation of domain knowledge from psychology. This domain knowledge relates the muscular activity with higher level tasks, such as distinguishing between posed and spontaneous affective behavior or recognition of temporal phases. 
+	\subsection*{Geometric Features from Tracked Facial Points}
+	This representation is designed to incorporating the knowledge from cognitive science to analyze temporal variation and the corresponding muscular activity. It has been used for the recognition of AUs with their temporal phase~\cite{Valstar}, and the discrimination of spontaneous between posed smiles and brow actions.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig1.png}
+		\caption{Geometric features from tracked feature points} \label{fig1}
+	\end{figure}
+	\par
+	The representation describes the facial shape and activity by means of fiducial point~\cite{Valstar}. To this end, it uses the raw location of each point, the length and angle of the lines obtained by connecting all points pairwise in space, and the differences obtained by comparing these features with respect to their value in a neutral face. Some of these features describe componential information such as the opening of the mouth, as well as configural information such as the distance between the corner of the eye and the nose (see Figure.~\ref{fig1}). Other features aim at capturing temporal variation.
+	\par
+	The representation is sensitive to registration errors as its features are mostly extracted from raw or differential point coordinates. Although the representation describes temporal variation, it may not capture subtle expressions as it is extracted from a small number of facial points and depends on accurate point registration.
+	\subsection*{Low-level Features from Orthogonal Plane}
+	Extracting features from three orthogonal planes (TOP) is a popular approach towards extending low-level spatial appearance representations to the spatio-temporal domain (see Figure~\ref{fig2} and~\ref{fig3}). This paradigm originally emerged when extending LBP to LBP-TOP. LBP-TOP is applied for basic emotion recognition~\cite{ZHAO20091117,Zhao2007Dynamic} and AU recognition. Following this method, LPQ is extended to LPQ-TOP and used for AU and temporal segment recognition~\cite{Jiang2011,Jiang2014}.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig2.png}
+		\caption{LBP-TOP, and the TOP paradigm} \label{fig2}
+	\end{figure}
+	\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fig3.png}
+	\caption{LPQ-TOP} \label{fig3}
+	\end{figure}
+	\subsection*{Convolution with Smooth Filter}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig4.png}
+		\caption{Spatio-temporal ICA filtering, the out put on an exemplar spatio-temporal filter.} \label{fig4}
+	\end{figure}
+	\par
+	An alternative approach for representing the temporal variation in texture with low-level features is applying convolution with smooth spatio-temporal filters (see Figure~\ref{fig4}). Two such approaches are spatio-temporal Gabor filtering~\cite{Wu2010} and spatio-temporal independent component (IC) filtering~\cite{LONG2012126}. Both approaches target explicitly the recognition of subtle expressions.
+	\par
+	Gabor and IC filters are localized in space and time. At the spatial level, the output of the filtering encodes componential information. The main difference between the Gabor and IC filters is that the parameters of Gabor filters are adjusted manually, while IC filters are obtained automatically in the process of unsupervised Independent Component Analysis.
+	\subsection*{Spatio-temporal Haar Representations}
+	There are two representations using the well-established Haar features for spatio-temporal representation. They are the dynamic Haar features~\cite{Yang2007} and similarity features~\cite{Yang2008,YANG2011}. The former is a straightforward temporal extension of the Haar features, whereas the latter tailors an overall representation scheme for affect recognition.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig5.png}
+		\caption{Dynamic Haar representation} \label{fig5}
+	\end{figure}
+	\par
+	As illustrated in Figure~\ref{fig5}, each dynamic Haar feature encodes the temporal variation in an image sequence with a pattern of binary values, where each binary value is obtained by thresholding the output of the Haar feature in the corresponding frame.
+	\subsection*{Free-form Deformation Representation}
+	The free-form deformation representation extends free-form deformation, which is essentially a registration technique, into a representation that extracts features in the process of registration by computing the pixels' spatial and temporal displacement (see Figure~\ref{fig6}). This representation is used for AU recognition with temporal segments~\cite{Koelstra}.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig6.png}
+		\caption{Free-form deformation representation, illustration of free-form deformation.} \label{fig6}
+	\end{figure}
+	\subsection*{Temporal Bag-of-Words Representation}
+	The temporal BoW representation is specific to AU detection and can be best explained by describing how the problem is formulated by its authors. Simon~\emph{et al.}~\cite{Simon2010} assume that an AU is an event that exists in a given image sequence. The problem is then formulated as identifying the boundaries of the existing AU event. The approach was also generalized for multiple AUs.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig7.png}
+		\caption{Temporal BoW.} \label{fig7}
+	\end{figure}
+	\par
+	Temporal BoW represents an arbitrary subset of the given image sequence with a single histogram which is computed as follows (see Figure~\ref{fig7}):
+	\begin{enumerate}
+		\item Each fream in the subset is represented using the part-based SIFT representation and compressed with principal component analysis to obtain a frame-wise vector.
+		\item Each frame-wise vector is encoded using the BoW paradigm that measures similarity by means of multiple vectors via soft clustering.
+		\item All encoded frame-wise vectors are collected in a histogram.
+	\end{enumerate}
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
+
