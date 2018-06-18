@@ -1,0 +1,41 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[colorlinks,linkcolor=red,anchorcolor=blue,citecolor=green,backref=page]{hyperref}
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+	\title{Automatic Analysis of Facial Affect: A Survey of Registration, Representation, and Recognition}	
+	\author{Yuan An}
+	\maketitle
+	In the last article, spatio-temporal is introduced~\cite{Auto}. Today, dimensionality reduction is talked about in brief.
+	\section*{Dimensionality Reduction}
+	Dimensionality reduction can be used to address several affect recognition challenges such as illumination variation, registration errors and identity bias. Components that reduce dimensionality may operate across multiple layers, such as early preprocessing (\eg downsampling input image, applying masks) and intrinsic representation layers. In this section, the dimensionality reduction techniques are grouped into three classes, namely pooling, feature selection and feature extraction methods.
+	\subsection*{Pooling}
+	Pooling, an example defined specifically for appearance representations, reduces dimensionality over local blocks of the representation by describing the features within the block jointly. This description discards the location of adjacent feature and thereby increase the tolerance against registration errors. Such function of pooling have a biological motivation as they mimic parts of mammals' vision systems~\cite{Hubel}.
+	\par
+	Pooling is usually applied on multiple small neighborhoods across the image. There exists a variety of pooling techniques, such as binning features over local histograms, sampling the minimum or maximum value within a neighborhood or computing the sum or average of the features across the neighborhood. Sensitivity to illumination variations is generally addressed by normalizing the output of pooling (\eg subtracting the local mean, or performing unit-norm normalization).
+	\par
+	Pooling is usually considered as an intrinsic layer of the representation~\cite{LeCun}. Representation such as the low-level histogram representations are defined to be dependent exclusively on a certain type of pooling.
+	\subsection*{Feature Selection}
+	Feature selection aims at refining the facial representation by selecting a subset of its features, and optionally weighting the selected features. This process may be designed to have a semantic interpretation, such as discovering spatial or spatio-temporal regions of interest. Such applications of feature selection may reduce identity bias, as they are expected to discover the regions that are informative in terms of expressions rather than identity. Alternatively, the feature selection process may be designed to reduce dimensionality in a rather straightforward manner, without emphasis on the physical correspondence of the selected feature.
+	\par
+	Feature selection can be performed with a range of techniques. A simple form is selecting and weighting certain spatial regions manually~\cite{Shan}. Most systems rely on data-driven feature selection and the most popular paradigm is boosting. Boosting refers to a set of generic techniques, which are designed for prediction (classification/regression)~\cite{friedman2000}. Many affect recognizer neglect the prediction role of boosting techniques and use them only for feature selection.
+	\subsection*{Feature Extraction}
+	Feature extraction methods extract novel features (\eg holistic features) from the initial representations. They map an input representation onto a lower dimensional space to discover a latent structure from the representation. This transformation can be non-adaptive or adaptive (learnt from training data).
+	\par
+	The most popular non-adaptive transformation is the discrete cosine transformation (DCT) whereas the most popular adaptive transformation is PCA. PCA computes a linear transformation that aims at extrating decorrelated features out of possibly correlated feature. Under controlled head-pose and imaging conditions, these features capture the statistical structure of expressions efficiently~\cite{CALDER20011179}. PCA is used by many systems including the winner of the AVEC continuous challenge.
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
+
