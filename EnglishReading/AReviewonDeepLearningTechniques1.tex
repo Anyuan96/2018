@@ -1,0 +1,43 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[colorlinks,linkcolor=red,anchorcolor=blue,citecolor=green,backref=page]{hyperref}
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+	\title{A Review on Deep Learning Techniques Applied to Semantic Segmentation}	
+	\author{Yuan An}
+	\maketitle
+	Image semantic segmentation is more and more being of interest for computer vision and machine learning researchers. Many applications on the rise need accurate and efficient segmentation mechanisms: autonomous driving, indoor navigation, and even virtual or augmented reality systems to name a few. This demand coincides with the rise of deep learning approaches in almost every field or application target related to computer vision, including semantic segmentation or scene understanding. The paper of Garcia-Garcia~\emph{et al.}~\cite{citedarticle} provides a review on deep learning method for semantic segmentation applied to various application areas. First, the authors describe the terminology of this field as well mandatory background concepts. Next, the main dataset and challenges are exposed to help researchers decide which are the ones that best suit their needs and their targets. Then, existing methods are reviewed, highlighting their contributions and their significance in the field. Finally, quantitative results are given for the described methods and the datasets in which they were evaluated, following up with a discussion of the results. At last, they point out a set of promising future works and draw conclusions about the state of the art of semantic segmentation using deep learning techniques.
+	\section*{Introduction}
+	Semantic segmentation applied to still 2D images, video, and even 3D or volumetric data is one of the key problems in the field of computer vision. In the macro sense, semantic segmentation is one of the high-level task that paves the way towards complete scene understanding. As an essential problem of computer vision, the importance of scene understanding is highlighted by the fact that an increasing number of applications nourish from inferring knowledge from imagery (i.e. abstract from concrete). Some of those applications include autonomous driving~\cite{Ess2009,Geiger2012Are,Cordts2016}, human-machine interaction~\cite{Oberweger2015}, computational photography~\cite{Yoon2015}, image search engines~\cite{Wan2014}, and augmented reality to name a few. Such problem has been addressed in the past using various traditional computer vision and machine learning techniques. Despite the popularity of those kind of methods, the deep learning revolution has turned the tables so that many computer vision problems including semantic segmentation are being tracked using deep architectures, usually convolutional neural networks (CNNs), which are surpassing other approaches by a large margin in terms of accuracy and sometimes even efficiency. However, deep learning is far from the maturity achieved by other old-established branches of computer vision and machine learning. 
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig1.png}
+		\caption{Evolution of object recognition or scene understanding from coarse-grained to fine-grained inference: classification, detection or localization, semantic segmentation, and instance segmentation.} \label{fig1}
+	\end{figure}
+	\par
+	Figure~\ref{fig1} shows the difference of image classification, object localization, semantic segmentation and instance segmentation.
+	\par
+	This paper is the first review to focus explicitly on deep learning for semantic segmentation.
+	\par
+	The key contributions of their work are as follows:
+	\begin{itemize}
+		\item Provide a broad survey of existing datasets that might be useful for segmentation projects with deep learning techniques.
+		\item An in-depth and organized review of the most significant methods that use deep learning for semantic segmentation, their origins, and their contributions.
+		\item A thorough performance evaluation which gathers quantitative metrics such as accuracy, execution time, and memory footprint.
+		\item A discussion about the aforementioned results, as well as a list of possible future works that might set the course of upcoming advances, and a conclusion summarizing the state of the art of the field.
+	\end{itemize}
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
