@@ -1,0 +1,64 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[colorlinks,linkcolor=red,anchorcolor=blue,citecolor=green,backref=page]{hyperref}
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+	\title{A Review on Deep Learning Techniques Applied to Semantic Segmentation}	
+	\author{Yuan An}
+	\maketitle
+	In the last article, semantic segmentation is introduced in brief. In this article, terminology and background concepts will be introduced~\cite{citedarticle}. In the section 2, the authors introduce terminology and background concepts of semantic segmentation. Firstly, there is common networks.
+	\section*{Common Deep Network Architectures}
+	Some deep networks have made important contributions to the field, such as AlexNet, VGG-16, GoogLeNet, and ResNet.
+	\subsection*{AlexNet}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig1.png}
+		\caption{AlexNet Convolutional Neural Network architecture. Figure reproduced from~\cite{Krizhevsky2012ImageNet}} \label{fig1}
+	\end{figure}
+	Figure~\ref{fig1} shows the architecture presented by Krizhevsky~\emph{et al.}~\cite{Krizhevsky2012ImageNet} that consist of 5 convolutional layers, max-pooling ones, Rectified Linear Units (ReLUs), 3 fully-connected layers, and dropout.
+	\subsection*{VGG}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig2.png}
+		\caption{VGG-16 CNN architecture. Figure extracted from Matthieu Cord's talk with his permission.} \label{fig2}
+	\end{figure}
+	Visual Geometry Group (VGG) is a CNN model introduced by the Visual Geometry Group from the University of Oxford who proposed various models and configurations of deep CNNs~\cite{Simonyan}. Figure~\ref{fig2} shows the configuration of VGG-16. The difference between VGG-16 and its predecessors is the use of a stack of convolution layers with small receptive fields in the first layers instead of few layers with big receptive fields.
+	\subsection*{GoogLeNet}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig3.png}
+		\caption{Inception module with dimensionality reduction from the GoogLeNet architecture. Figure reproduced from~\cite{Szegedy}} \label{fig3}
+	\end{figure}
+	GoogLeNet is a network introduced by Szegedy~\emph{et al.}~\cite{Szegedy} which won the ILSVRC-2014 challenge. This CNN architecture is famous of its complexity, emphasized by the fact that it is composed by 22 layers and a newly introduced building block called inception module (see Figure~\ref{fig3}).
+	\subsection*{ResNet}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig4.png}
+		\caption{Residual block from the ResNet architecture. Figure reproduced from~\cite{He2016Deep}.} \label{fig4}
+	\end{figure}
+	Microsoft's ResNet~\cite{He2016Deep} is famous of high accuracy (won ILSVRC-2016 with 96.4\% accuracy) and its depth (152 layers) and the introduce of residual blocks (see Figure~\ref{fig4}). The residual blocks solve the problem of training a really deep architecture by introducing identity skip connections so that layers can copy their inputs to the next layer.
+	\subsection*{ReNet}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig5.png}
+		\caption{One layer of ReNet architecture modeling vertical and horizontal spatial dependencies. Extracted from~\cite{VisinKCMCB15}.}
+		\label{fig5}
+	\end{figure}
+	Graves~\emph{et al.}~\cite{Graves2007Multi} proposed a Multi-dimensional Recurrent Neural Network (MDRNN) architecture for extending Recurrent Neural Networks (RNNs) architectures to mulit-dimensional tasks.
+	\par
+	In ReNet, each convolutional layer is replaced with 4 RNNs sweeping the image vertically and horizontally in both directions (see Figure~\ref{fig5}).
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
