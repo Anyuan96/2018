@@ -1,0 +1,89 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{cvpr}
+%\usepackage{times}
+\usepackage{fontspec}
+\usepackage{newtxtext, newtxmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[colorlinks,linkcolor=red,anchorcolor=blue,citecolor=green,backref=page]{hyperref}
+\cvprfinalcopy
+%\def\cvprPaperID{****}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+	\title{A Review on Deep Learning Techniques Applied to Semantic Segmentation}	
+	\author{Yuan An}
+	\maketitle
+	In the last article, some common networks of semantic segmentation is introduced in brief. In the rest of some sections, I know about a common training technique--transfer learning, and data pre-processing and augmentation approaches.
+	\section*{Transfer Learning}
+	There are two reasons for difficult to training a deep neural network from te very beginning are that a dataset of sufficient size is needed (not usually available) and reaching convergence needs to long. Even if meet the above conditions, it is often helpful to start with pre-trained weights instead of random initialized ones~\cite{Ahmed2008Training,Oquab2014Learning}.
+	\par
+	Yosinski~\emph{et al.}~\cite{Yosinski2014How} also proved that transferring features even from distant tasks can be better than using random initialization.
+	\par
+	By fine-tuning the weights of a pre-trained network, transfer learning can make training a deep neural network faster and more efficient.
+	\par
+	But transfer technique is not completely straightforward. On the one hand, there are architectural constraints that must be met to use a pre-trained network, so it is common to reuse already existing network architectures. On the other hand, the difference of process between transfer learning and training networks from the very beginning is sightly.
+	\par
+	Data augmentation is a common technique that has been proven to benefit the training of machine learning models in general and deep architectures in particular; either speeding up convergence or acting as a regularizer, thus avoiding overfitting and increasing generalization capabilities~\cite{Wong2016}.
+	\section*{Datasets}
+	In the section 3 of~\cite{citedarticle}, the authors introduce some common used dataset, including 2D datasets, 2.5D datasets and 3D datasets. Some instance of mentioned datasets will be presented in the following.
+	\subsection*{2D Datasets}
+	PASCAL Visual Object Class (VOC) consists of a ground-truth annotated dataset of images and five different competitions: classification, detection, segmentation, action classification, and person layout(see Figure~\ref{fig1}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig1.png}
+		\caption{Instances from PASCAL VOC datasets.}\label{fig1}
+	\end{figure}
+	\par
+	Semantic Boundaries Dataset (SDB) is an extended version of PASCAL VOC which provides semantic segmentation ground truth for those images that were not labelled in VOC (see Figure~\ref{fig2}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig2}
+		\caption{Instances from SDB.}\label{fig2}
+	\end{figure}
+	\par
+	SYNTHetic Collection of Imagery and Annotations (SYNTHIA) is a large-scale collection of photo-realistic renderings of a virtual city, semantically segmented, whose purpose is scene understanding in the context of driving or urban scenarios (see Figure~\ref{fig3}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig3.png}
+		\caption{Instances from SYNTHIA.}\label{fig3}
+	\end{figure}
+	\par
+	KITTI is one of the most popular datasets for use in mobile robotics and autonomous driving. It consists of hours of traffic scenarios recorded with a variety of sensor modalities, including high-resolution RGB, grayscale stereo cameras, and a 3D laser scanner (see Figure~\ref{fig4}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig4.png}
+		\caption{Instances from KITTI.}\label{fig4}
+	\end{figure}
+	\subsection*{2.5D Datasets}
+	With the advent of low-cost range scanners, datasets including not only RGB information but also depth maps are gaining popularity and usage.
+	NYUDv2 consists of 1449 indoor RGB-D images captured with a Microsoft Kinect device.
+	\par
+	SUN3D is similar to the NYUDv2, containing a large-scale RGB-D video database, with 8 annotated sequences.
+	\par
+	The Object Segmentation Database (OSD) has been designed for segmenting unknown objects from generic scenes even under partial occlusions (see Figure~\ref{fig5}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig5.png}
+		\caption{Instances from OSD.} \label{fig5}
+	\end{figure}
+	\par
+	RGB-D Object Dataset is composed by video sequences of 300 common household objects organized in 51 categories arranged (see Figure~\ref{fig6}).
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{fig6.png}
+		\caption{Instances from RGB-D Object Dataset.} \label{fig6}
+	\end{figure}
+	\subsection*{3D Datasets}
+	Pure 3D databases are scarce, this kind of datasets usually provide CAD meshes or other volumetric representations, such as point clouds. Generating large-scale 3D datasets for segmentation is costly and difficult, and not many deep learning methods are able to process that kind of data as it is.
+	\par 
+	The common used 3D datasets are including ShapeNet Part, Stanford 2D-3D-S, Benchmark for 3D Mesh Segmentation and Sydney Urban Objects Dataset.
+	\par
+	By knowing those knowledge about training method, data preprocessing and augmentation technique, and dataset common used, it can make it easily to know semantic segmentation.
+	{\small
+		\bibliographystyle{ieee}
+		\bibliography{reference}
+	}
+\end{document}
